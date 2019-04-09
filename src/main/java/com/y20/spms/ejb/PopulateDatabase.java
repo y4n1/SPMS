@@ -5,10 +5,10 @@
  */
 package com.y20.spms.ejb;
 
-import com.y20.spms.database.Project;
-import com.y20.spms.database.ProjectTopic;
-import com.y20.spms.database.Student;
-import com.y20.spms.database.Supervisor;
+import com.y20.spms.entity.Project;
+import com.y20.spms.entity.ProjectTopic;
+import com.y20.spms.entity.Student;
+import com.y20.spms.entity.Supervisor;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.PostConstruct;
@@ -16,21 +16,19 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.transaction.Transactional;
 
 /**
  *
  * @author Yan's
  */
-@Singleton
-@Startup
+//@Singleton
+//@Startup 
 public class PopulateDatabase {
        
-    @PersistenceContext(name = "WebappsPU")
+  /*  @PersistenceContext(name = "WebappsPU")
     public EntityManager em;
         
-    @PostConstruct
+    @PostConstruct 
     public void createSomeDataInDatabase() {
            
         System.err.println("loaded");
@@ -57,7 +55,7 @@ public class PopulateDatabase {
         p.setDescription("Project Description");
         p.setRequiredSkills("Java, Python");
         p.setProjectStatus(Project.ProjectStatus.PROPOSED);
-        Set<ProjectTopic> projectTopics = new HashSet<ProjectTopic>();
+        Set<ProjectTopic> projectTopics = new HashSet<>();
         projectTopics.add(topic);
         p.setTopic(projectTopics);
         p.setSupervisor(spv);
@@ -66,19 +64,19 @@ public class PopulateDatabase {
         
              
         Student s = new Student();
-        s.setId("fn5548");
+        s.setUsername("fn5548");
         s.setFname("Franta");
         s.setLname("Novak");
         s.setEmail("abcd@gmail.com");
         s.setCourseName("abcdef");
         s.setProject(p);
-        em.persist(s);
+        em.persist(s); 
         
         
+        */
         
         
-        
-    }
+    //}
     
 
     // Add business logic below. (Right-click in editor and choose

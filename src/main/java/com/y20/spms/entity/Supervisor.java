@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.y20.spms.database;
+package com.y20.spms.entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -20,7 +22,11 @@ public class Supervisor implements Serializable {
     private static final long serialVersionUID = 1L;
        
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(nullable = false, name = "username", length = 15, unique=true)
+    private String username;
     
     @Column(nullable = false, name = "fname", length = 15)
     private String fname;
@@ -37,16 +43,16 @@ public class Supervisor implements Serializable {
     @Column(nullable = false, name = "email", length = 100)
     private String email;
 
-    public String getId() {
+    public String getFname() {
+        return fname;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFname() {
-        return fname;
     }
 
     public void setFname(String fname) {
@@ -83,6 +89,14 @@ public class Supervisor implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
         
     @Override

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <title>Supervisor Registration Form</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form id="supervisorRegisterForm">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="username" value="*User name:"/></td>
+                        <td><h:inputText id="username" value="#{Registration.username}"
+                            required="true" requiredMessage="Please enter Supervisor username" /></td>
+                        <td><h:message for="username" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="password" value="*Password:"/></td>
+                        <td><h:inputSecret id="password" value="#{Registration.password}"
+                            required="true" requiredMessage="Please enter password" /></td>
+                        <td><h:message for="password" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="confirmpassword" value="*Confirm password:"/></td>
+                        <td><h:inputSecret id="confirmpassword" value="#{Registration.confirmpassword}"
+                            required="true" requiredMessage="Please re-enter password" /></td>
+                        <td><h:message for="confirmpassword" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="fname" value="*First name:"/></td>
+                        <td><h:inputText id="fname" value="#{Registration.fname}"
+                            required="true" requiredMessage="Please enter supervisor first name" /></td>
+                        <td><h:message for="fname" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="lname" value="*Last name:"/></td>
+                        <td><h:inputText id="lname" value="#{Registration.lname}"
+                            required="true" requiredMessage="Please enter supervisor last name" /></td>
+                        <td><h:message for="lname" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="email" value="*Email:"/></td>
+                        <td><h:inputText id="email" value="#{Registration.email}"
+                            required="true" requiredMessage="Please enter student email" /></td>
+                        <td><h:message for="email" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="department" value="*Department:"/></td>
+                        <td><h:inputText id="department" value="#{Registration.department}"
+                            required="true" requiredMessage="Please enter department" /></td>
+                        <td><h:message for="department" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="phone_number" value="*Phone number:"/></td>
+                        <td><h:inputText id="phone_number" value="#{Registration.phone_number}"
+                            required="true" requiredMessage="Please enter phone number" /></td>
+                        <td><h:message for="phone_number" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td />
+                        <td><h:commandButton value="Register" action="#{Registration.registerSpv()}" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLink value="index.xhtml">Home</h:outputLink></td>
+                    </tr>
+                 </table>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>

@@ -5,7 +5,7 @@
  */
 package com.y20.spms.ejb;
 
-import com.y20.spms.database.Student;
+import com.y20.spms.entity.Student;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

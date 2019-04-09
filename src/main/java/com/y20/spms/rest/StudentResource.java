@@ -5,7 +5,7 @@
  */
 package com.y20.spms.rest;
 
-import com.y20.spms.database.Student;
+import com.y20.spms.entity.Student;
 import com.y20.spms.ejb.StudentOperation;
 import java.util.List;
 import javax.ejb.EJB;

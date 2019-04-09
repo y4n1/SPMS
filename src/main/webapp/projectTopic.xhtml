@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+        <title>Topic Registration Form</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form id="TopicRegisterForm">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="project_title" value="*Title:"/></td>
+                        <td><h:inputText id="project_title" value="#{TopicRegistration.project_title}"
+                            required="true" requiredMessage="Please enter the Title" /></td>
+                        <td><h:message for="project_title" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="topic_description" value="*Description:"/></td>
+                        <td><h:inputTextarea cols="30" rows="10" id="topic_description" value="#{TopicRegistration.topic_description}"
+                            required="true" requiredMessage="Please enter the Description" /></td>
+                        <td><h:message for="topic_description" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td />
+                        <td><h:commandButton value="Register" action="#{TopicRegistration.registerProjTopic()}" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLink value="index.xhtml">Home</h:outputLink></td>
+                    </tr>
+                 </table>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>

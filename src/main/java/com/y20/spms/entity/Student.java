@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.y20.spms.database;
+package com.y20.spms.entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -19,10 +23,17 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Student implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+   // private static final long serialVersionUID = 1L;
+    
+  //  @Id
+ //   private String id;
     
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(nullable = false, name = "username", length = 15, unique=true)
+    private String username;
     
     @Column(nullable = false, name = "fname", length = 15)
     private String fname;
@@ -39,17 +50,53 @@ public class Student implements Serializable {
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true, name = "project_id")
     private Project project;
-        
-    public String getId() {
-        return id;
+    
+    /*@OneToOne(optional = false)
+    @JoinColumn(nullable = false, name = "id" , referencedColumnName="username")
+    private Project SystemUser; */
+
+    /*public Student(String username, String fname, String lname, String email, String course_name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+
+    public Student() {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+   /* public Student(String username, String fname, String lname, String email, String course_name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+
+  //  public Student() {
+  //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  //  } 
+        
+  //  public String getId() {
+  //      return id;
+  //  }
+
+ //   public void setId(String id) {
+ //      this.id = id;
+  //  }
 
     public String getFname() {
         return fname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setFname(String fname) {
@@ -108,9 +155,9 @@ public class Student implements Serializable {
         return true;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "com.y20.spms.database.Student[ id=" + id + " ]";
     }
-    
+    */
 }
