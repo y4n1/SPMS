@@ -43,8 +43,12 @@
                     <tr>
                         <td><h:outputLabel for="email" value="*Email:"/></td>
                         <td><h:inputText id="email" value="#{Registration.email}"
-                            required="true" requiredMessage="Please enter student email" /></td>
+                            required="true" requiredMessage="Please enter student email"> 
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </td>
                         <td><h:message for="email" style="color:red" /></td>
+                        
                     </tr>
                     <tr>
                         <td><h:outputLabel for="course_name" value="*Course name:"/></td>

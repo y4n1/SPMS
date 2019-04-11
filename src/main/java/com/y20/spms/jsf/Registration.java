@@ -20,8 +20,8 @@ import javax.inject.Named;
  * @author Yan's
  */
 
-@ManagedBean(name = "Registration")
-//@Named("StudentReg")
+//@ManagedBean(name = "Registration")
+@Named("Registration")
 @RequestScoped
 
 public class Registration implements Serializable{

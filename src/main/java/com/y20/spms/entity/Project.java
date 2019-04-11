@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -38,13 +39,13 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "title", nullable = false, length = 50)
+    @Column(name = "title", nullable = false, length = 200)
     private String title;
     
-    @Column(name = "description", nullable = false, length = 200)
+    @Column(name = "description", nullable = false, length = 1000)
     private String description;
     
-    @Column(name = "required_skills", nullable = false, length = 200)
+    @Column(name = "required_skills", nullable = false, length = 500)
     private String requiredSkills;
    
     @Enumerated(EnumType.STRING)
@@ -52,11 +53,12 @@ public class Project implements Serializable {
     private ProjectStatus projectStatus;
     
     @ManyToOne(optional = false)
-    @JoinColumn(name = "project_supervisor", nullable = false)
+    @JoinColumn(name = "project_supervisor", nullable = true)
     private Supervisor supervisor;
         
-    @OneToMany(mappedBy = "project")
-    private Set<Student> students;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "student", nullable = true)
+    private Student student;
     
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<ProjectTopic> topic;
@@ -110,13 +112,13 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
     }
 
-    public Set<Student> getStudents() {
-        return students;
-    }
+   // public Set<Student> getStudents() {
+  //      return students;
+  //  }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
+   // public void setStudents(Set<Student> students) {
+  //      this.students = students;
+   // }
 
     public Set<ProjectTopic> getTopic() {
         return topic;
@@ -124,6 +126,14 @@ public class Project implements Serializable {
 
     public void setTopic(Set<ProjectTopic> topic) {
         this.topic = topic;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     

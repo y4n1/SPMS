@@ -5,8 +5,7 @@
  */
 package com.y20.spms.jsf;
 
-import com.y20.spms.ejb.ProjectService;
-import com.y20.spms.ejb.UserService;
+import com.y20.spms.ejb.TopicService;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -25,7 +24,7 @@ public class TopicRegistration implements Serializable{
     private String topic_description;
     
     @EJB
-    ProjectService prjSrv;
+    TopicService prjSrv;
     
     public TopicRegistration() {
 
@@ -47,11 +46,11 @@ public class TopicRegistration implements Serializable{
         this.topic_description = topic_description;
     }
 
-    public ProjectService getPrjSrv() {
+    public TopicService getPrjSrv() {
         return prjSrv;
     }
 
-    public void setPrjSrv(ProjectService prjSrv) {
+    public void setPrjSrv(TopicService prjSrv) {
         this.prjSrv = prjSrv;
     }
     

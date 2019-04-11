@@ -26,7 +26,7 @@ public class ProjectTopic implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "project_title", length = 100, nullable = false, unique = true)
+    @Column(name = "topicTitle", length = 100, nullable = false, unique = true)
     private String topicTitle;
     
     @Column(name = "topic_description", length = 250, nullable = false)
