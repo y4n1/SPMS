@@ -6,11 +6,15 @@
 package com.y20.spms.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -43,6 +47,7 @@ public class Supervisor implements Serializable {
     @Column(nullable = false, name = "email", length = 100)
     private String email;
 
+    
     public String getFname() {
         return fname;
     }
@@ -98,7 +103,7 @@ public class Supervisor implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-        
+    
     @Override
     public int hashCode() {
         int hash = 0;

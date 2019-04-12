@@ -34,27 +34,32 @@ public class ProjectService {
 
         Project proj;
        // Supervisor spv;
-
+        Supervisor Supervisor = new Supervisor();
+        //Supervisor.setId(spv);
+        em.merge(Supervisor);
+        
         proj = new Project();
         proj.setTitle(title);
         proj.setDescription(description);
         proj.setRequiredSkills(requiredSkills);
         proj.setProjectStatus(Project.ProjectStatus.AVAILABLE);
         Set<ProjectTopic> projectTopics = new HashSet<>();
-        projectTopics.add(topic);
+       // projectTopics.add(topic);
         proj.setTopic(projectTopics);
+        //Set<Supervisor> supervisors = new HashSet<>();
         proj.setSupervisor(spv);
-      //  proj.setSupervisor(spv);
-      //  Set<ProjectTopic> projectTopics = new HashSet<>();
-      //  proj.setTopic(projectTopics);
-               
         em.persist(proj);
+        
+                
+                
+               
+        
         
     }
 
-    public void registerProject(String projtitle, String projdecr, String requiredskill, String projspv, String projtopic) {
+   // public void registerProject(String projtitle, String projdecr, String requiredskill, String projspv, String projtopic) {
     //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   // }
     
     public List<Supervisor> findSupervisor() {
         String query = "select spv from Supervisor spv";

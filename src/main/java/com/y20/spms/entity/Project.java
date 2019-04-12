@@ -8,6 +8,7 @@ package com.y20.spms.entity;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -52,7 +53,7 @@ public class Project implements Serializable {
     @Column(name = "project_status", nullable = false, length = 20)
     private ProjectStatus projectStatus;
     
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "project_supervisor", nullable = true)
     private Supervisor supervisor;
         
@@ -60,7 +61,7 @@ public class Project implements Serializable {
     @JoinColumn(name = "student", nullable = true)
     private Student student;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<ProjectTopic> topic;
     
 
@@ -111,14 +112,6 @@ public class Project implements Serializable {
     public void setSupervisor(Supervisor supervisor) {
         this.supervisor = supervisor;
     }
-
-   // public Set<Student> getStudents() {
-  //      return students;
-  //  }
-
-   // public void setStudents(Set<Student> students) {
-  //      this.students = students;
-   // }
 
     public Set<ProjectTopic> getTopic() {
         return topic;

@@ -70,22 +70,6 @@ public class ProjectRegistration implements Serializable {
         this.requiredskill = requiredskill;
     }
 
-    public String getProjspv() {
-        return projspv;
-    }
-
-    public void setProjspv(String projspv) {
-        this.projspv = projspv;
-    }
-
-    public String getProjtopic() {
-        return projtopic;
-    }
-
-    public void setProjtopic(String projtopic) {
-        this.projtopic = projtopic;
-    }
-
     public ProjectService getPrjSrv() {
         return prjSrv;
     }
@@ -110,14 +94,30 @@ public class ProjectRegistration implements Serializable {
         this.prjtopiclist = prjtopiclist;
     }
 
+    public String getProjspv() {
+        return projspv;
+    }
+
+    public void setProjspv(String projspv) {
+        this.projspv = projspv;
+    }
+
+    public String getProjtopic() {
+        return projtopic;
+    }
+
+    public void setProjtopic(String projtopic) {
+        this.projtopic = projtopic;
+    }
+
     
 
     public Supervisor getSupervisor() {
         return supervisor;
     }
 
-    public void setSupervisor(Supervisor supervisor) {
-        this.supervisor = supervisor;
+    public void setSupervisor(Supervisor projspv) {
+        this.supervisor = projspv;
     }
 
     public ProjectTopic getProjectTopic() {
@@ -131,7 +131,7 @@ public class ProjectRegistration implements Serializable {
     
     //call the injected EJB 
     public String registerProj() {
-        prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
+        prjSrv.registerProject(projtitle, projdecr, requiredskill, supervisor, projectTopic);
         return "index";
     }
     
