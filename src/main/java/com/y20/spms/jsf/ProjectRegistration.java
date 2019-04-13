@@ -31,7 +31,7 @@ public class ProjectRegistration implements Serializable {
     private String projtitle;
     private String projdecr;
     private String requiredskill;
-    private String projspv;
+    private Long projspv;
     private String projtopic;
     private Supervisor supervisor = new Supervisor();
     private ProjectTopic projectTopic = new ProjectTopic();
@@ -94,13 +94,15 @@ public class ProjectRegistration implements Serializable {
         this.prjtopiclist = prjtopiclist;
     }
 
-    public String getProjspv() {
+    public Long getProjspv() {
         return projspv;
     }
 
-    public void setProjspv(String projspv) {
+    public void setProjspv(Long projspv) {
         this.projspv = projspv;
     }
+
+   
 
     public String getProjtopic() {
         return projtopic;
@@ -131,7 +133,7 @@ public class ProjectRegistration implements Serializable {
     
     //call the injected EJB 
     public String registerProj() {
-        prjSrv.registerProject(projtitle, projdecr, requiredskill, supervisor, projectTopic);
+        prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projectTopic);
         return "index";
     }
     
