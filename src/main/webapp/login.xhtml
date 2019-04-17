@@ -1,18 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Login</title>
+        <title>LOGIN</title>
     </h:head>
-    <body>
-        <h2>Login Form</h2>
-        <form action="j_security_check" name="loginForm">
-            Username: <input type="text" name="j_username" size="20"/>
-            Password: <input type="password" name="j_password" size="20"/>
-            <br/>
-            <button value="Submit" type="submit">Submit</button>
-            <button value="Reset" type="reset">Reset</button>
-        </form>
-    </body>
+    <h:body>
+        <f:view>
+            <h:form id="Login">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="username" value="Username:"/></td>
+                        <td><h:inputText id="username" value="#{login.username}"
+                            required="true" requiredMessage="Please enter Username" /></td>
+                        <td><h:message for="username" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="password" value="Password:"/></td>
+                        <td><h:inputSecret value="#{login.password}"
+                            required="true" requiredMessage="Please enter your Password" /></td>
+                        <td><h:message for="password" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton value="Submit" action="#{login.login()}" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton value="Reset  " type="reset"/></td>
+                    </tr>
+                 </table>
+            </h:form>
+        </f:view>
+    </h:body>
 </html>

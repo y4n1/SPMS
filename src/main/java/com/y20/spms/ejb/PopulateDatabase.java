@@ -9,6 +9,8 @@ import com.y20.spms.entity.Project;
 import com.y20.spms.entity.ProjectTopic;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
+import com.y20.spms.entity.SystemUser;
+import com.y20.spms.entity.SystemUserGroup;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.PostConstruct;
@@ -25,7 +27,7 @@ import javax.persistence.PersistenceContext;
 //@Startup 
 public class PopulateDatabase {
        
-  /*  @PersistenceContext(name = "WebappsPU")
+    @PersistenceContext(name = "WebappsPU")
     public EntityManager em;
         
     @PostConstruct 
@@ -33,7 +35,17 @@ public class PopulateDatabase {
            
         System.err.println("loaded");
         
-        Supervisor spv = new Supervisor();
+        SystemUser su = new SystemUser();
+        su.setUsername("admin1");
+        su.setUserpassword("admin1");
+        em.persist(su);
+        
+        SystemUserGroup sug = new SystemUserGroup();
+        sug.setGroupname("Admin");
+        sug.setUsername("admin1");
+        em.persist(sug);
+        
+        /*Supervisor spv = new Supervisor();
         spv.setId("mn125");
         spv.setFname("my");
         spv.setLname("name");
@@ -76,7 +88,7 @@ public class PopulateDatabase {
         */
         
         
-    //}
+    }
     
 
     // Add business logic below. (Right-click in editor and choose
