@@ -32,11 +32,13 @@ public class ProjectRegistration implements Serializable {
     private String projdecr;
     private String requiredskill;
     private Long projspv;
-    private String projtopic;
+    private Long projtopic;
     private Supervisor supervisor = new Supervisor();
     private ProjectTopic projectTopic = new ProjectTopic();
-    private List<Supervisor> spvlist = new ArrayList<>();
-    private List<ProjectTopic> prjtopiclist = new ArrayList<>();
+    //private List<Supervisor> spvlist = new ArrayList<>();
+    //public ptopic[] topicList;
+    //private List<ProjectTopic> prjtopiclist = new ArrayList<>();
+    
    
     
     @EJB
@@ -78,21 +80,21 @@ public class ProjectRegistration implements Serializable {
         this.prjSrv = prjSrv;
     }
 
-    public List<Supervisor> getSpvlist() {
-        return spvlist;
-    }
+//    public List<Supervisor> getSpvlist() {
+//        return spvlist;
+//    }
+//
+//    public void setSpvlist(List<Supervisor> spvlist) {
+//        this.spvlist = spvlist;
+//    }
 
-    public void setSpvlist(List<Supervisor> spvlist) {
-        this.spvlist = spvlist;
-    }
-
-    public List<ProjectTopic> getPrjtopiclist() {
-        return prjtopiclist;
-    }
-
-    public void setPrjtopiclist(List<ProjectTopic> prjtopiclist) {
-        this.prjtopiclist = prjtopiclist;
-    }
+//    public List<ProjectTopic> getPrjtopiclist() {
+//        return prjtopiclist;
+//    }
+//
+//    public void setPrjtopiclist(List<ProjectTopic> prjtopiclist) {
+//        this.prjtopiclist = prjtopiclist;
+//    }
 
     public Long getProjspv() {
         return projspv;
@@ -102,15 +104,16 @@ public class ProjectRegistration implements Serializable {
         this.projspv = projspv;
     }
 
-   
-
-    public String getProjtopic() {
+    public Long getProjtopic() {
         return projtopic;
     }
 
-    public void setProjtopic(String projtopic) {
+    public void setProjtopic(Long projtopic) {
         this.projtopic = projtopic;
     }
+
+   
+
 
     
 
@@ -133,44 +136,104 @@ public class ProjectRegistration implements Serializable {
     
     //call the injected EJB 
     public String registerProj() {
-        prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projectTopic);
+        prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
         return "index";
     }
+      
+    public static class pSpv{
+	public Long ID;
+	public String Name;
+		
+	public pSpv(Long ID, String Name){
+		this.ID = ID;
+		this.Name = Name;
+	}
+		
+	public Long getID(){
+		return ID;
+	}
+		
+	public String getName(){
+		return Name;
+	}
+		
+    }
     
-    public List<Supervisor> fillSpvList() {
-        spvlist = prjSrv.findSupervisor();  
+        
+    public pSpv[] fillSpvList() {
+        
+        List<Supervisor> spvlist = prjSrv.findSupervisor();  
         int x = 0;
         String firstname;
         String lastname;
         String fullname;
+        Long ID;
+        pSpv[] SpvList;
         
-        List list = new ArrayList();
+        SpvList = new pSpv[spvlist.size()];
         
-        for( Supervisor e:spvlist ){
-            list.add(e.getId());
-      }
+        while (x < spvlist.size()) {
+            
+            firstname = spvlist.get(x).getFname();
+            lastname = spvlist.get(x).getLname();
+            fullname = firstname + " " + lastname;
+            ID = spvlist.get(x).getId();
+            SpvList[x] = new pSpv(ID,fullname);
+            
+            x = x+1;
+        } 
+        
+//        for( Supervisor e:spvlist ){
+//            list.add(e.getId());
+//      }
                
-        return list;
+        return SpvList;
     }
     
-    public List<ProjectTopic> fillTopicList() {
-        prjtopiclist = prjSrv.findTopic();
-        int i = 0;
+    public static class ptopic{
+	public Long ID;
+	public String Title;
+		
+	public ptopic(Long ID, String Title){
+		this.ID = ID;
+		this.Title = Title;
+	}
+		
+	public Long getID(){
+		return ID;
+	}
+		
+	public String getTitle(){
+		return Title;
+	}
+		
+    }
+    
+       
+    public ptopic[] fillTopicList() {
         
-        List list_topic = new ArrayList();
+        List<ProjectTopic> prjtopiclist = prjSrv.findTopic();
+        int i = 0;
+        Long ID;
+        String Title;
+        ptopic[] topicList;
+        
+        topicList = new ptopic[prjtopiclist.size()];
                 
-      /*  while (i < prjtopiclist.size()) {
+        while (i < prjtopiclist.size()) {
             
-            list_topic.add(prjtopiclist.get(i).getTopicTitle());
+            ID = prjtopiclist.get(i).getId();
+            Title = prjtopiclist.get(i).getTopicTitle();
+            topicList[i] = new ptopic(ID,Title);
             
             i = i+1;
-        }  */  
+        }    
       
-        for( ProjectTopic p:prjtopiclist ){
-            list_topic.add(p.getTopicTitle());
-        }
+        //for( ProjectTopic p:prjtopiclist ){
+        //    list_topic.add(p.getId());
+       // }
         
-        return list_topic;
+        return topicList;
     }
     
 }

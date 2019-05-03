@@ -7,6 +7,7 @@
 package com.y20.spms.entity;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -33,7 +35,7 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public static enum ProjectStatus {
-        ACCEPTED, PROPOSED, AVAILABLE;
+        ACCEPTED, PROPOSED, AVAILABLE, CANCELLED;
     }        
 
     @Id
@@ -61,8 +63,20 @@ public class Project implements Serializable {
     @JoinColumn(name = "student", nullable = true)
     private Student student;
     
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<ProjectTopic> topic;
+   // @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+   // private Set<ProjectTopic> topic;
+    
+    @ManyToMany(
+        cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+        }
+    )
+    @JoinTable(name = "project_projecttopic",
+        joinColumns = @JoinColumn(name = "project_id"),
+        inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    private Set<ProjectTopic> topics = new LinkedHashSet<>();
     
 
     public Long getId() {
@@ -113,13 +127,7 @@ public class Project implements Serializable {
         this.supervisor = supervisor;
     }
 
-    public Set<ProjectTopic> getTopic() {
-        return topic;
-    }
 
-    public void setTopic(Set<ProjectTopic> topic) {
-        this.topic = topic;
-    }
 
     public Student getStudent() {
         return student;
@@ -129,8 +137,11 @@ public class Project implements Serializable {
         this.student = student;
     }
 
-    
-    
+    public void addTopic(ProjectTopic topic) {
+        topics.add(topic);
+        topic.getProjects().add(this);
+    }
+ 
     
     @Override
     public int hashCode() {

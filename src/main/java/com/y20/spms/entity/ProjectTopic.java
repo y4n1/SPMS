@@ -6,6 +6,7 @@
 package com.y20.spms.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,8 +35,14 @@ public class ProjectTopic implements Serializable {
     @Column(name = "topic_description", length = 250, nullable = false)
     private String topicDescription;
            
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private Set<Project> projects;
+    //@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany()
+    //private Set<Project> projects;
+    private Set<Project> projects = new HashSet<>();
+
+    public ProjectTopic() {
+  //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     
     public Long getId() {
@@ -69,6 +76,8 @@ public class ProjectTopic implements Serializable {
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
+    
     
     @Override
     public int hashCode() {

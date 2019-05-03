@@ -30,11 +30,13 @@ public class ProjectService {
     public ProjectService() {
     }
     
-    public void registerProject(String title, String description, String requiredSkills, Long spv,  ProjectTopic topic) {
+    public void registerProject(String title, String description, String requiredSkills, Long spv,  Long topic) {
         //long x = 4;
         Project proj;
+        ProjectTopic pt = em.getReference(ProjectTopic.class, topic);
         
         Supervisor supervisor = em.getReference(Supervisor.class, spv);
+        
         
         
         proj = new Project();
@@ -42,15 +44,16 @@ public class ProjectService {
         proj.setDescription(description);
         proj.setRequiredSkills(requiredSkills);
         proj.setProjectStatus(Project.ProjectStatus.AVAILABLE);
-        Set<ProjectTopic> projectTopics = new HashSet<>();
+        //Set<ProjectTopic> projectTopics = new HashSet<>();
        // projectTopics.add(topic);
-        proj.setTopic(projectTopics);
+        proj.addTopic(pt);
         //Set<Supervisor> supervisors = new HashSet<>();
         proj.setSupervisor(supervisor);
         em.persist(proj);
         
                 
-          // Supervisor spv;
+       
+        
         
       //  em.detach(supervisor);
         

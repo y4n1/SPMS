@@ -34,14 +34,14 @@
                     <tr>
                         <td><h:outputLabel for="project_supervisor" value="Supervisor:"/></td>
                         <td><h:selectOneMenu value="#{ProjectRegistration.projspv}">
-                                <f:selectItems value="#{ProjectRegistration.fillSpvList()}" />
+                                <f:selectItems value="#{ProjectRegistration.fillSpvList()}" var="sp"  itemLabel="#{sp.name}" itemValue="#{sp.ID}"/>
                         </h:selectOneMenu> </td>
                         <td><h:message for="project_supervisor" style="color:red" /></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel for="project_Topic" value="Topic:"/></td>
                         <td><h:selectOneMenu value="#{ProjectRegistration.projtopic}">
-                                <f:selectItems value="#{ProjectRegistration.fillTopicList()}" />
+                                <f:selectItems value="#{ProjectRegistration.fillTopicList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
                         </h:selectOneMenu> </td>
                     <td><h:message for="project_Topic" style="color:red" /></td>
                     </tr>

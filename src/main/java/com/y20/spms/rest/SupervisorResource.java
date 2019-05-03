@@ -5,18 +5,15 @@
  */
 package com.y20.spms.rest;
 
-import com.y20.spms.entity.Student;
 import com.y20.spms.ejb.RestOperation;
+import com.y20.spms.entity.Supervisor;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.enterprise.context.RequestScoped;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -24,23 +21,20 @@ import javax.ws.rs.core.Response;
  */
 
 @Singleton
-@Path("/student/{supervisorId}")
-public class StudentResource {
+@Path("/supervisor/{studentId}")
+public class SupervisorResource {
     
     @EJB
-    private RestOperation studentOperation;
+    private RestOperation spvOperation;
         
     @GET
     @Produces({"application/xml", "application/json"})
-    public List<Student> getStudents(@PathParam("supervisorId")  Long supervisorId) {
-        if("all".equals(supervisorId)) {
-            return studentOperation.findAllStudents();
+    public List<Supervisor> getSupervisors(@PathParam("studentId")  Long studentId) {
+        if("all".equals(studentId)) {
+            return spvOperation.findAllSupervisors();
         }else {
-            return studentOperation.findSupervisorByStudents(supervisorId);        
+            return spvOperation.findStudentsBySupervisor(studentId);        
         }        
     }
-    
-    
-    
     
 }
