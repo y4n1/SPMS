@@ -7,6 +7,7 @@ package com.y20.spms.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class SystemUser  implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false, unique=true)
     String username;
 
     @NotNull

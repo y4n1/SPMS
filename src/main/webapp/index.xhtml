@@ -6,17 +6,18 @@
         <title>Student Project Management System</title>
     </h:head>
     <h:body>
-        <h:link value="Go to a user page" outcome="user"/>
-        <br/>
-        Register Student <h:link value="here" outcome="studentRegistration"/>
-        <br/>
-        Register Supervisor <h:link value="here" outcome="spvRegistration"/>
-        <br/>
-        Register Topic <h:link value="here" outcome="projectTopic"/>
-        <br/>
-        Register Project <h:link value="here" outcome="projectRegistration"/>
-        <h:form>
-            Logout: <h:commandButton value="Logout" action="#{login.logout()}"/>
-        </h:form>
+        <h:form id="index">
+            Register Student <h:link value="here" outcome="studentRegistration"/>
+            <br/>
+            Register Supervisor <h:link value="here" outcome="spvRegistration"/>
+            <br/>
+            Register Topic <h:link value="here" outcome="projectTopic"/>
+            <br/>
+            Register Project <h:link value="here" outcome="projectRegistration"/>
+        </h:form>    
+            <h:form>
+                Logout: <h:commandButton value="Logout" action="#{login.logout()}"/>
+            </h:form>
+            
     </h:body>
 </html>

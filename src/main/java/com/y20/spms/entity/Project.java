@@ -58,7 +58,7 @@ public class Project implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "project_supervisor", nullable = true)
     private Supervisor supervisor;
-        
+   
     @OneToOne(optional = false)
     @JoinColumn(name = "student", nullable = true)
     private Student student;

@@ -7,6 +7,7 @@ package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.entity.ProjectTopic;
+import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +17,9 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -33,8 +36,10 @@ public class ProjectRegistration implements Serializable {
     private String requiredskill;
     private Long projspv;
     private Long projtopic;
+    private Long student;
     private Supervisor supervisor = new Supervisor();
     private ProjectTopic projectTopic = new ProjectTopic();
+    private Student st = new Student();
     //private List<Supervisor> spvlist = new ArrayList<>();
     //public ptopic[] topicList;
     //private List<ProjectTopic> prjtopiclist = new ArrayList<>();
@@ -80,22 +85,6 @@ public class ProjectRegistration implements Serializable {
         this.prjSrv = prjSrv;
     }
 
-//    public List<Supervisor> getSpvlist() {
-//        return spvlist;
-//    }
-//
-//    public void setSpvlist(List<Supervisor> spvlist) {
-//        this.spvlist = spvlist;
-//    }
-
-//    public List<ProjectTopic> getPrjtopiclist() {
-//        return prjtopiclist;
-//    }
-//
-//    public void setPrjtopiclist(List<ProjectTopic> prjtopiclist) {
-//        this.prjtopiclist = prjtopiclist;
-//    }
-
     public Long getProjspv() {
         return projspv;
     }
@@ -112,10 +101,14 @@ public class ProjectRegistration implements Serializable {
         this.projtopic = projtopic;
     }
 
-   
+    public Long getStudent() {
+        return student;
+    }
 
-
-    
+    public void setStudent(Long student) {
+        this.student = student;
+    }
+  
 
     public Supervisor getSupervisor() {
         return supervisor;
@@ -132,14 +125,49 @@ public class ProjectRegistration implements Serializable {
     public void setProjectTopic(ProjectTopic projectTopic) {
         this.projectTopic = projectTopic;
     }
+
+    public Student getSt() {
+        return st;
+    }
+
+    public void setSt(Student st) {
+        this.st = st;
+    }
+    
+    
     
     
     //call the injected EJB 
+    //register project
     public String registerProj() {
         prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
         return "index";
     }
       
+    //propose project
+    
+    public String proposeProj() {
+        Getloginid();
+        prjSrv.proposeProject(projtitle, projdecr, requiredskill, projspv, projtopic, student);
+        return "studentPage";
+    }
+    
+    //Get Student ID from login username
+    public void Getloginid() {
+        String std;
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        std = request.getRemoteUser();
+        System.out.println(std);
+        st = prjSrv.getstuId(std);
+        student = st.getId();
+        //student = st.getId();
+        System.out.println(student);
+        
+    }
+    
+    //filling up spv list
     public static class pSpv{
 	public Long ID;
 	public String Name;
@@ -182,14 +210,11 @@ public class ProjectRegistration implements Serializable {
             
             x = x+1;
         } 
-        
-//        for( Supervisor e:spvlist ){
-//            list.add(e.getId());
-//      }
-               
+ 
         return SpvList;
     }
     
+    // Get all title
     public static class ptopic{
 	public Long ID;
 	public String Title;

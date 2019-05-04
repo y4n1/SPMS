@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Project Registration Form</title>
+    </h:head>
+
+    <h:body>
+        <f:view>
+            <h:form id="ProjectSelection">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="supervisor" value="Supervisor:"/></td>
+                        <td><h:selectOneMenu value="#{ProjSelection.projspv}" onchange="#{ProjSelection.onspvchange()}">
+                                <f:selectItems value="#{ProjSelection.fillsupervisorList()}" var="sp"  itemLabel="#{sp.name}" itemValue="#{sp.ID}"/>
+                        </h:selectOneMenu> </td>
+                        <td><h:message for="supervisor" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="project_Title" value="Title:"/></td>
+                        <td><h:selectOneMenu value="#{ProjSelection.projtitle}" onchange="#{ProjSelection.getprojectinfo()}">
+                                <f:selectItems value="#{ProjSelection.fillTitleList}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
+                        </h:selectOneMenu> </td>
+                    <td><h:message for="project_Topic" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="description" value="Description:"/></td>
+                        <td><h:inputTextarea cols="30" rows="10" id="description" value="#{ProjSelection.projdecr}"
+                        required="true" requiredMessage="Please enter Description" /></td>
+                        <td><h:message for="description" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="required_skills" value="Required Skills:"/></td>
+                        <td><h:inputTextarea cols="30" rows="10" id="required_skills" value="#{ProjSelection.requiredskill}"
+                       required="true" requiredMessage="Please enter Required Skills" /></td>
+                        <td><h:message for="required_skills" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td />
+                        <td><h:commandButton value="Apply" action="#{ProjSelection.updateProj()}" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLink value="projectPropose.xhtml">Propose Own Topic</h:outputLink></td>
+                    </tr>
+                 </table>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

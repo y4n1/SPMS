@@ -1,43 +1,28 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <title>Project Registration Form</title>
     </h:head>
 
     <h:body>
         <f:view>
-            <h:form id="ProjectSelection">
+            <h:form id="ProjectProposalForm">
                 <table>
                     <tr>
-                        <td><h:outputLabel for="supervisor" value="Supervisor:"/></td>
-                        <td><h:selectOneMenu valueChangeListener="" onchange="" 
-                                             value="#{ProjectRegistration.projspv}">
-                                <f:selectItems value="#{ProjectRegistration.fillSpvList()}" />
-                        </h:selectOneMenu> </td>
-                        <td><h:message for="supervisor" style="color:red" />
-                            <h:inputText value="" id="spv" />    
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel for="project_Title" value="Title:"/></td>
-                        <td><h:selectOneMenu  valueChangeListener="" onchange="" 
-                                              value="#{ProjectRegistration.projtopic} ">
-                                <f:selectItems value="#{ProjectRegistration.fillTopicList()}" />
-                        </h:selectOneMenu> 
-                        <h:inputText value="" id="title" />
-                        </td>
-                        
-                        <td><h:message for="project_Topic" style="color:red" /></td>
+                        <td><h:outputLabel for="title" value="*Title:"/></td>
+                        <td><h:inputTextarea cols="30" rows="1" id="title" value="#{ProjectRegistration.projtitle}"
+                        required="true" requiredMessage="Please enter Project Title" /></td>
+                        <td><h:message for="title" style="color:red" /></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel for="description" value="*Description:"/></td>
                         <td><h:inputTextarea cols="30" rows="10" id="description" value="#{ProjectRegistration.projdecr}"
-                        </td>
+                       required="true" requiredMessage="Please enter Project Description" /></td>
                         <td><h:message for="description" style="color:red" /></td>
                     </tr>
                     <tr>
@@ -47,22 +32,29 @@
                         <td><h:message for="required_skills" style="color:red" /></td>
                     </tr>
                     <tr>
+                        <td><h:outputLabel for="project_supervisor" value="Supervisor:"/></td>
+                        <td><h:selectOneMenu value="#{ProjectRegistration.projspv}">
+                                <f:selectItems value="#{ProjectRegistration.fillSpvList()}" var="sp"  itemLabel="#{sp.name}" itemValue="#{sp.ID}"/>
+                        </h:selectOneMenu> </td>
+                        <td><h:message for="project_supervisor" style="color:red" /></td>
+                    </tr>
+                    <tr>
                         <td><h:outputLabel for="project_Topic" value="Topic:"/></td>
                         <td><h:selectOneMenu value="#{ProjectRegistration.projtopic}">
-                                <f:selectItems value="#{ProjectRegistration.fillTopicList()}" />
+                                <f:selectItems value="#{ProjectRegistration.fillTopicList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
                         </h:selectOneMenu> </td>
                     <td><h:message for="project_Topic" style="color:red" /></td>
                     </tr>
                     <tr>
                         <td />
-                        <td><h:commandButton value="Register" action="#{ProjectRegistration.registerProj()}" /></td>
+                        <td><h:commandButton value="Propose" action="#{ProjectRegistration.proposeProj()}" /></td>
                     </tr>
                     <tr>
-                        <td><h:outputLink value="projectTopic.xhtml">Propose Own Topic</h:outputLink></td>
+                        <td><h:outputLink value="studentPage.xhtml">Home</h:outputLink></td>
                     </tr>
                  </table>
             </h:form>
         </f:view>
     </h:body>
-</html>
 
+</html>

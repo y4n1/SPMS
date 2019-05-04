@@ -33,18 +33,18 @@ public class PopulateDatabase {
     @PostConstruct 
     public void createSomeDataInDatabase() {
            
-        System.err.println("loaded");
-        
-        SystemUser su = new SystemUser();
-        su.setUsername("admin1");
-        su.setUserpassword("admin1");
-        em.persist(su);
-        
-        SystemUserGroup sug = new SystemUserGroup();
-        sug.setGroupname("Admin");
-        sug.setUsername("admin1");
-        em.persist(sug);
-        
+//        System.err.println("loaded");
+//        
+//        SystemUser su = new SystemUser();
+//        su.setUsername("admin1");
+//        su.setUserpassword("admin1");
+//        em.persist(su);
+//        
+//        SystemUserGroup sug = new SystemUserGroup();
+//        sug.setGroupname("Admin");
+//        sug.setUsername("admin1");
+//        em.persist(sug);
+//        
         /*Supervisor spv = new Supervisor();
         spv.setId("mn125");
         spv.setFname("my");

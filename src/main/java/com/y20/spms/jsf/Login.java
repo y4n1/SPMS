@@ -58,11 +58,11 @@ public class Login implements Serializable{
         
         System.out.println(request.getRequestURI());
         if (request.isUserInRole("Admin")) {
-            return "/faces/index.xhtml";
+            return "index.xhtml";  
         } else if (request.isUserInRole("Supervisor")) {    
             return "/faces/projectRegistration.xhtml";
         } else {
-            return "/faces/projectRegistration.xhtml";
+            return "/faces/student/studentPage.xhtml";
         }
         
     }
