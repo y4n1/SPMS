@@ -23,34 +23,30 @@
                     </tr>   
                     <tr>
                         <td><h:outputLabel for="project_Title" value="Title:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection.projID}"
-                                             valueChangeListener="#{ProjSelection.ontitlechange}" >
+                        <td><h:selectOneMenu value="#{ProjSelection.projID}" onchange="submit()"
+                                             valueChangeListener="#{ProjSelection.ontitlechange}">
                                 <f:selectItems id="projID" value="#{ProjSelection.fillTitleList()}" var="p"  itemLabel="#{p.title}" itemValue="#{p.ID}"/>
                         </h:selectOneMenu> </td>
                     <td><h:message for="project_Title" style="color:red" /></td>
-                    </tr>
-                    <tr>
-                    <td><h:inputText id="project_ID" value="#{ProjSelection.projID}"
-                            required="true" requiredMessage="Please enter the Title" /></td>
-                    </tr>    
+                    </tr>  
                     <tr>
                         <td><h:outputLabel for="description" value="Description:"/></td>
-                        <td><h:inputTextarea cols="30" rows="10" id="description" value="#{ProjSelection.projdecr}"
-                        required="true" requiredMessage="Please enter Description" /></td>
-                        <td><h:message for="description" style="color:red" /></td>
+                        <td><h:outputLabel value="#{ProjSelection.projdecr}"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel for="required_skills" value="Required Skills:"/></td>
-                        <td><h:inputTextarea cols="30" rows="10" id="required_skills" value="#{ProjSelection.requiredskill}"
-                       required="true" requiredMessage="Please enter Required Skills" /></td>
-                        <td><h:message for="required_skills" style="color:red" /></td>
+                        <td><h:outputLabel value="#{ProjSelection.requiredskill}"/></td>
                     </tr>
                     <tr>
                         <td />
                         <td><h:commandButton value="Apply" action="#{ProjSelection.updateProj()}" /></td>
                     </tr>
                     <tr>
-                        <td><h:outputLink value="projectPropose.xhtml">Propose Own Topic</h:outputLink></td>
+                        <td />
+                        <td><h:commandButton value="Back" action="studentPage" /></td>
+                    </tr>
+                    <tr>
+                         <td><h:outputLink value="projectPropose.xhtml">Propose Own Topic</h:outputLink></td>
                     </tr>
                  </table>
             </h:form>

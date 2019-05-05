@@ -30,7 +30,7 @@ public class InsertAdmin {
     @PersistenceContext(name = "WebappsPU")
     public EntityManager em;
     
-    //@PostConstruct 
+   // @PostConstruct 
     public void createSomeDataInDatabase (){
            
         System.err.println("loaded");

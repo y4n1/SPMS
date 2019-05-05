@@ -10,11 +10,13 @@ import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -27,8 +29,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Named("ProjSelection")
-@RequestScoped
-public class ProjSelection {
+//@RequestScoped
+@ViewScoped
+public class ProjSelection implements Serializable {
     
     private Long projID;
     private String projdecr;
@@ -58,15 +61,14 @@ public class ProjSelection {
         this.projID = projID;
     }
 
-    
     public String getProjdecr() {
         return projdecr;
     }
 
     public void setProjdecr(String projdecr) {
         this.projdecr = projdecr;
-    }
-
+    }   
+    
     public String getRequiredskill() {
         return requiredskill;
     }
@@ -145,15 +147,16 @@ public class ProjSelection {
 		
     }
     
+    // fill up project title list
     public projTitle[] fillTitleList() {
+        projTitle[] titleList;
+        titleList = new projTitle[0];
         Long spv;
         spv = getProjspv();
-        System.out.println(spv);
         List<Project> prjtitlelist = pss.findTitlebyspv(spv);
         int i = 0;
         Long ID;
         String Title;
-        projTitle[] titleList;
         
         titleList = new projTitle[prjtitlelist.size()];
                 
@@ -190,7 +193,7 @@ public class ProjSelection {
 	
 	}
 		
-          
+    //fill up spv list      
     public projsupervisor[] fillsupervisorList() {
         
         List<Supervisor> prjspvlist = pss.findAllSupervisor();
@@ -220,11 +223,12 @@ public class ProjSelection {
         Long titleid;
         titleid = getProjID();
         pt = pss.findDetail(titleid);
-        projdecr = pt.getDescription();
-        requiredskill = pt.getRequiredSkills();
-        
+        this.setProjdecr(pt.getDescription());
+        this.setRequiredskill(pt.getRequiredSkills());
+        System.out.println(projdecr);
     }
     
+    // Retrieve login ID
     public void Getloginid() {
         String std;
         FacesContext context = FacesContext.getCurrentInstance();
@@ -239,11 +243,13 @@ public class ProjSelection {
     // Update Project
     public String updateProj() {
         
+        Getloginid();
+        System.out.println(projstd);
         pss.updateProject(projID, projspv, projstd);
         return "studentPage";
     }
     
-    
+    //onchange event when selecting spv
     public void onspvchange(ValueChangeEvent e){
         
         String newvalue;       
@@ -258,7 +264,7 @@ public class ProjSelection {
         selecttitle = event.getNewValue().toString();
         projID = Long.parseLong(selecttitle);
         this.setProjID(projID);
-        System.out.println(projID);
+        System.out.println("proj" + projID);
         Getprojectinfo();
         
     }

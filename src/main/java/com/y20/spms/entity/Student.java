@@ -47,9 +47,9 @@ public class Student implements Serializable {
     @Column(nullable = false, name = "course_name", length = 100)
     private String courseName;
     
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true, name = "project_id")
-    private Project project;
+//    @ManyToOne(optional = true)
+//    @JoinColumn(nullable = true, name = "project_id")
+//    private Project project;
     
     /*@OneToOne(optional = false)
     @JoinColumn(nullable = false, name = "id" , referencedColumnName="username")
@@ -127,13 +127,13 @@ public class Student implements Serializable {
         this.courseName = courseName;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
+//    public Project getProject() {
+//        return project;
+//    }
+//
+//    public void setProject(Project project) {
+//        this.project = project;
+//    }
     
     @Override
     public int hashCode() {

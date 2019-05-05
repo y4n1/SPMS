@@ -6,6 +6,7 @@
 package com.y20.spms.ejb;
 
 import com.y20.spms.entity.Project;
+import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,8 +32,16 @@ public class ProjSelectionService {
     }
     
     public void updateProject(Long id, Long spv, Long stu) {
-          
-      Query query = em.createQuery("UPDATE Project p SET student = stu, projectStatus = PROPOSED WHERE project_supervisor = spv and id = id");
+      Student student = em.getReference(Student.class, stu);
+      Enum status;
+      status = Project.ProjectStatus.PROPOSED;    
+      Query query = em.createQuery("UPDATE Project p SET p.student = :student, p.projectStatus = :status " +
+                                " WHERE p.supervisor.id = :spv and p.id = :id");
+      query.setParameter("id", id);
+      query.setParameter("spv", spv);   
+      query.setParameter("student", student);
+      query.setParameter("status", status);   
+
       int updateProj = query.executeUpdate();
         
     }
@@ -69,7 +78,7 @@ public class ProjSelectionService {
     }
     
     public Project findDetail(Long ID) {
-        String query = "select p from Project p where (p.id = :ID)";
+        String query = "select p from Project p where p.id = :ID";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
         q.setParameter("ID", ID);
         return q.getSingleResult();               
