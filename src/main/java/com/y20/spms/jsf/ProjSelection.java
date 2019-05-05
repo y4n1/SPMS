@@ -5,17 +5,19 @@
  */
 package com.y20.spms.jsf;
 
-import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.ejb.ProjectService;
+import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Named("ProjSelection")
 @RequestScoped
-public class ProjSelection implements Serializable{
+public class ProjSelection {
     
     private Long projtitle;
     private String projdecr;
@@ -35,9 +37,8 @@ public class ProjSelection implements Serializable{
     private Long projstd;
     private Project pt = new Project();
     private Student st = new Student();
-    //private List[] ttlList;
     
-    
+
     @EJB
     ProjSelectionService pss;
     
@@ -80,18 +81,6 @@ public class ProjSelection implements Serializable{
         this.projspv = projspv;
     }
 
-//    public void setPrjtitlelist(List<Project> prjtitlelist) {
-//        this.prjtitlelist = prjtitlelist;
-//    }
-
-    public ProjSelectionService getPss() {
-        return pss;
-    }
-
-    public void setPss(ProjSelectionService pss) {
-        this.pss = pss;
-    }
-
     public Long getProjstd() {
         return projstd;
     }
@@ -116,20 +105,22 @@ public class ProjSelection implements Serializable{
         this.st = st;
     }
 
-    
-    
-//    public List<Project> fillSpvList() {
-//        spvlist = pss.findAllSupervisor();  
-//       // int x = 0;
-//        
-//        List list = new ArrayList();
-//        
-//        for( Project p:spvlist ){
-//            list.add(p.getSupervisor());
-//      }
-//               
-//        return list;
-//    }
+    public ProjSelectionService getPss() {
+        return pss;
+    }
+
+    public void setPss(ProjSelectionService pss) {
+        this.pss = pss;
+    }
+   
+      
+    public ProjectService getPrjSrv() {
+        return prjSrv;
+    }
+
+    public void setPrjSrv(ProjectService prjSrv) {
+        this.prjSrv = prjSrv;
+    }
     
     public static class projTitle{
 	public Long ID;
@@ -139,20 +130,24 @@ public class ProjSelection implements Serializable{
 		this.ID = ID;
 		this.Title = Title;
 	}
+
+        public Long getID() {
+            return ID;
+        }
+
+        public String getTitle() {
+            return Title;
+        }
 		
-	public Long getID(){
-		return ID;
-	}
-		
-	public String getTitle(){
-		return Title;
-	}
+	
 		
     }
     
     public projTitle[] fillTitleList() {
-        
-        List<Project> prjtitlelist = pss.findTitlebyspv(projspv);
+        Long spv;
+        spv = getProjspv();
+        System.out.println(spv);
+        List<Project> prjtitlelist = pss.findTitlebyspv(spv);
         int i = 0;
         Long ID;
         String Title;
@@ -195,27 +190,22 @@ public class ProjSelection implements Serializable{
           
     public projsupervisor[] fillsupervisorList() {
         
-        List<Project> prjspvlist = pss.findAllSupervisor("AVAILABLE");
+        List<Supervisor> prjspvlist = pss.findAllSupervisor();
         int x = 0;
         String firstname;
         String lastname;
         String fullname;
         Long ID;
-        projsupervisor[] SupervisorList;
-        
+        projsupervisor[] SupervisorList; 
+
         SupervisorList = new projsupervisor[prjspvlist.size()];
-        System.out.print(prjspvlist.size());
         
         while (x < prjspvlist.size()) {
-            
-            firstname = prjspvlist.get(x).getSupervisor().getFname();
-            lastname = prjspvlist.get(x).getSupervisor().getLname();
-            fullname = firstname + " " + lastname;
-            ID = prjspvlist.get(x).getSupervisor().getId();
-            //ID = prjspvlist.get(x).getId();
-            //fullname = prjspvlist.get(x).getDescription();
-            SupervisorList[x] = new projsupervisor(ID,fullname);
-            
+                firstname = prjspvlist.get(x).getFname();
+                lastname = prjspvlist.get(x).getLname();
+                fullname = firstname + " " + lastname;
+                ID = prjspvlist.get(x).getId();
+                SupervisorList[x] = new projsupervisor(ID,fullname);   
             x = x+1;
         } 
  
@@ -249,10 +239,19 @@ public class ProjSelection implements Serializable{
         return "studentPage";
     }
     
-    public void onspvchange(){
-        
-        fillsupervisorList();
+    public void onspvchange(ValueChangeEvent e){
+        String test;       
+        test = e.getNewValue().toString();
+        projspv = Long.parseLong(test);
+        System.out.println(test);
         
     }
+    
+    public void ontitlechange(){
+        
+        //Getprojectinfo();
+        
+    }
+    
     
 }

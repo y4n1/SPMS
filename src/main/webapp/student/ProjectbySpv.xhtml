@@ -15,15 +15,17 @@
                 <table>
                     <tr>
                         <td><h:outputLabel for="supervisor" value="Supervisor:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection.projspv}" onchange="#{ProjSelection.onspvchange()}">
-                                <f:selectItems value="#{ProjSelection.fillsupervisorList()}" var="sp"  itemLabel="#{sp.name}" itemValue="#{sp.ID}"/>
+                        <td><h:selectOneMenu value="#{ProjSelection.projspv}" onchange="submit()"
+                                             valueChangeListener="#{ProjSelection.onspvchange}">
+                                <f:selectItems id="projspv" value="#{ProjSelection.fillsupervisorList()}" var="sp"  itemLabel="#{sp.name}" itemValue="#{sp.ID}"/>
+                                
                         </h:selectOneMenu> </td>
                         <td><h:message for="supervisor" style="color:red" /></td>
-                    </tr>
+                    </tr>   
                     <tr>
                         <td><h:outputLabel for="project_Title" value="Title:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection.projtitle}" onchange="#{ProjSelection.getprojectinfo()}">
-                                <f:selectItems value="#{ProjSelection.fillTitleList}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
+                        <td><h:selectOneMenu value="#{ProjSelection.projtitle}" onclick="#{ProjSelection.fillTitleList()}" onchange="#{ProjSelection.ontitlechange()}">
+                                <f:selectItems value="#{ProjSelection.fillTitleList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
                         </h:selectOneMenu> </td>
                     <td><h:message for="project_Topic" style="color:red" /></td>
                     </tr>
