@@ -21,20 +21,26 @@ import javax.ws.rs.Produces;
  */
 
 @Singleton
-@Path("/supervisor/{studentId}")
+@Path("supervisor")
 public class SupervisorResource {
     
     @EJB
     private RestOperation spvOperation;
         
+   //by studentid
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Path("/{studentId}")
+    @Produces({"application/json", "application/xml"})
     public List<Supervisor> getSupervisors(@PathParam("studentId")  Long studentId) {
-        if("all".equals(studentId)) {
-            return spvOperation.findAllSupervisors();
-        }else {
-            return spvOperation.findStudentsBySupervisor(studentId);        
-        }        
+        return spvOperation.findStudentsBySupervisor(studentId);        
+    }
+    
+    // All
+    @GET
+    @Path("/all")
+    @Produces({"application/json", "application/xml"})
+    public List<Supervisor> getAllProjects() {
+        return spvOperation.findAllSupervisors();
     }
     
 }

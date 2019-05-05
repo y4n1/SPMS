@@ -31,7 +31,9 @@ public class RestOperation {
     }    
     
     public List<Student> findSupervisorByStudents(Long supervisorId) {
-        String query = "select s from Student s where s.project.supervisor.id = :supervisorId";
+        String query = "select s from Student s " +
+                       //" inner join s.project p " +
+                       "where s.project.supervisor.id = :supervisorId";
       
         TypedQuery<Student> q = em.createQuery(query, Student.class);
         q.setParameter("supervisorId", supervisorId);
@@ -52,8 +54,9 @@ public class RestOperation {
     }    
     
     public List<Supervisor> findStudentsBySupervisor(Long studentId) {
-        String query = "select spv from Supervisor spv where spv.project.student.id = :studentId";
-      
+        String query = "select distinct s from Project p " +
+                " inner join p.supervisor s" +
+                " where p.student.id = :studentId";
         TypedQuery<Supervisor> q = em.createQuery(query, Supervisor.class);
         q.setParameter("studentId", studentId);
         

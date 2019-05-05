@@ -8,7 +8,6 @@
     <h:head>
         <title>Project Registration Form</title>
     </h:head>
-
     <h:body>
         <f:view>
             <h:form id="ProjectSelection">
@@ -24,11 +23,16 @@
                     </tr>   
                     <tr>
                         <td><h:outputLabel for="project_Title" value="Title:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection.projtitle}" onclick="#{ProjSelection.fillTitleList()}" onchange="#{ProjSelection.ontitlechange()}">
-                                <f:selectItems value="#{ProjSelection.fillTitleList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
+                        <td><h:selectOneMenu value="#{ProjSelection.projID}"
+                                             valueChangeListener="#{ProjSelection.ontitlechange}" >
+                                <f:selectItems id="projID" value="#{ProjSelection.fillTitleList()}" var="p"  itemLabel="#{p.title}" itemValue="#{p.ID}"/>
                         </h:selectOneMenu> </td>
-                    <td><h:message for="project_Topic" style="color:red" /></td>
+                    <td><h:message for="project_Title" style="color:red" /></td>
                     </tr>
+                    <tr>
+                    <td><h:inputText id="project_ID" value="#{ProjSelection.projID}"
+                            required="true" requiredMessage="Please enter the Title" /></td>
+                    </tr>    
                     <tr>
                         <td><h:outputLabel for="description" value="Description:"/></td>
                         <td><h:inputTextarea cols="30" rows="10" id="description" value="#{ProjSelection.projdecr}"

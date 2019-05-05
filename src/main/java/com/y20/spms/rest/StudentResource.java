@@ -24,22 +24,28 @@ import javax.ws.rs.core.Response;
  */
 
 @Singleton
-@Path("/student/{supervisorId}")
+@Path("student")
 public class StudentResource {
     
     @EJB
     private RestOperation studentOperation;
         
+
+    // by supervisor ID
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Path("/{supervisorId}")
+    @Produces({"application/json", "application/xml"})
     public List<Student> getStudents(@PathParam("supervisorId")  Long supervisorId) {
-        if("all".equals(supervisorId)) {
-            return studentOperation.findAllStudents();
-        }else {
-            return studentOperation.findSupervisorByStudents(supervisorId);        
-        }        
+        return studentOperation.findSupervisorByStudents(supervisorId);   
     }
     
+    // All
+    @GET
+    @Path("/all")
+    @Produces({"application/json", "application/xml"})
+    public List<Student> getAllProjects() {
+        return studentOperation.findAllStudents();
+    }
     
     
     

@@ -8,6 +8,7 @@ package com.y20.spms.rest;
 import com.y20.spms.ejb.RestOperation;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Supervisor;
+import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -22,21 +23,26 @@ import javax.ws.rs.Produces;
  */
 
 @Singleton
-@Path("/project/{supervisorId}")
+//@Path("/project/{supervisorId}")
+@Path("project")
 public class ProjectResource {
     
     @EJB
     private RestOperation prjOperation;
         
+    // by supervisor ID
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Path("/{supervisorId}")
+    @Produces({"application/json", "application/xml"})
     public List<Project> getProjects(@PathParam("supervisorId")  Long supervisorId) {
-        if("all".equals(supervisorId)) {
-            return prjOperation.findAllProjects();
-        }else {
-            return prjOperation.findProjectBySupervisor(supervisorId);        
-        }        
+        return prjOperation.findProjectBySupervisor(supervisorId);  
     }
-        
     
+    // All
+    @GET
+    @Path("/all")
+    @Produces({"application/json", "application/xml"})
+    public List<Project> getAllProjects() {
+        return prjOperation.findAllProjects();
+    }
 }

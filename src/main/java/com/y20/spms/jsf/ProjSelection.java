@@ -30,13 +30,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestScoped
 public class ProjSelection {
     
-    private Long projtitle;
+    private Long projID;
     private String projdecr;
     private String requiredskill;
     private Long projspv;
     private Long projstd;
     private Project pt = new Project();
     private Student st = new Student();
+    //private HtmlSelectOneMenu selectedPage = new HtmlSelectOneMenu();
     
 
     @EJB
@@ -49,14 +50,15 @@ public class ProjSelection {
 
     }
 
-    public Long getProjtitle() {
-        return projtitle;
+    public Long getProjID() {
+        return projID;
     }
 
-    public void setProjtitle(Long projtitle) {
-        this.projtitle = projtitle;
+    public void setProjID(Long projID) {
+        this.projID = projID;
     }
 
+    
     public String getProjdecr() {
         return projdecr;
     }
@@ -159,7 +161,8 @@ public class ProjSelection {
             
             ID = prjtitlelist.get(i).getId();
             Title = prjtitlelist.get(i).getTitle();
-            titleList[i] = new projTitle(ID,Title);
+            titleList[i] = new projTitle(ID,Title+ID);
+          //  System.out.println(ID);
             
             i = i+1;
         }    
@@ -214,8 +217,9 @@ public class ProjSelection {
     
     // Fill up project details base on selected title
     public void Getprojectinfo() {
-        
-        pt = pss.findDetail(projtitle);
+        Long titleid;
+        titleid = getProjID();
+        pt = pss.findDetail(titleid);
         projdecr = pt.getDescription();
         requiredskill = pt.getRequiredSkills();
         
@@ -235,21 +239,27 @@ public class ProjSelection {
     // Update Project
     public String updateProj() {
         
-        pss.updateProject(projtitle, projspv, projstd);
+        pss.updateProject(projID, projspv, projstd);
         return "studentPage";
     }
     
+    
     public void onspvchange(ValueChangeEvent e){
-        String test;       
-        test = e.getNewValue().toString();
-        projspv = Long.parseLong(test);
-        System.out.println(test);
         
+        String newvalue;       
+        newvalue = e.getNewValue().toString();
+        projspv = Long.parseLong(newvalue);
+        System.out.println(newvalue);
     }
     
-    public void ontitlechange(){
-        
-        //Getprojectinfo();
+    public void ontitlechange(ValueChangeEvent event){
+        String selecttitle;
+               
+        selecttitle = event.getNewValue().toString();
+        projID = Long.parseLong(selecttitle);
+        this.setProjID(projID);
+        System.out.println(projID);
+        Getprojectinfo();
         
     }
     
