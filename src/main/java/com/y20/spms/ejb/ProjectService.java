@@ -53,7 +53,7 @@ public class ProjectService {
         //Set<Supervisor> supervisors = new HashSet<>();
         proj.setSupervisor(supervisor);
         em.persist(proj);
-               
+        em.flush();         
     }
     
     // Propose Project by student
@@ -75,7 +75,7 @@ public class ProjectService {
         proj.setSupervisor(supervisor);
         proj.setStudent(student);
         em.persist(proj);
-        
+        em.flush();  
              
         
         

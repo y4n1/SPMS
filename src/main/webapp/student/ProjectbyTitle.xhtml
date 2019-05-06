@@ -12,11 +12,12 @@
                 <table>
                     <tr>
                         <td><h:outputLabel for="Title" value="Title:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection2.projID}" onchange="submit()"
+                        <td><h:selectOneMenu value="#{ProjSelection2.projID}"
                                              valueChangeListener="#{ProjSelection2.ontitlechange}">
                                 <f:selectItems id="projID" value="#{ProjSelection2.fillTitleList()}" var="sp"  itemLabel="#{sp.title}" itemValue="#{sp.ID}"/>
                                 
                         </h:selectOneMenu> </td>
+                        <td><h:commandButton value="..." action="#{ProjSelection2.submitbutton()}" /></td>
                         <td><h:message for="title" style="color:red" /></td>
                     </tr>   
                     <tr>

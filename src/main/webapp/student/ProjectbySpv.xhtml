@@ -14,19 +14,20 @@
                 <table>
                     <tr>
                         <td><h:outputLabel for="supervisor" value="Supervisor:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection.projspv}" onchange="submit()"
+                        <td><h:selectOneMenu value="#{ProjSelection.projspv}"
                                              valueChangeListener="#{ProjSelection.onspvchange}">
                                 <f:selectItems id="projspv" value="#{ProjSelection.fillsupervisorList()}" var="sp"  itemLabel="#{sp.name}" itemValue="#{sp.ID}"/>
-                                
                         </h:selectOneMenu> </td>
+                        <td><h:commandButton value="..." action="#{ProjSelection.submitbutton()}" /></td>
                         <td><h:message for="supervisor" style="color:red" /></td>
                     </tr>   
                     <tr>
                         <td><h:outputLabel for="project_Title" value="Title:"/></td>
-                        <td><h:selectOneMenu value="#{ProjSelection.projID}" onchange="submit()"
+                        <td><h:selectOneMenu value="#{ProjSelection.projID}"
                                              valueChangeListener="#{ProjSelection.ontitlechange}">
                                 <f:selectItems id="projID" value="#{ProjSelection.fillTitleList()}" var="p"  itemLabel="#{p.title}" itemValue="#{p.ID}"/>
                         </h:selectOneMenu> </td>
+                        <td><h:commandButton value="..." action="#{ProjSelection.detProj()}" /></td>
                     <td><h:message for="project_Title" style="color:red" /></td>
                     </tr>  
                     <tr>

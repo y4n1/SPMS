@@ -41,6 +41,6 @@ public void registerTopic(String title, String description) {
         topic.setTopicTitle(title);
         topic.setTopicDescription(description);
         em.persist(topic);
-
+        em.flush();  
     }
 }

@@ -21,7 +21,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -242,11 +245,20 @@ public class ProjSelection implements Serializable {
     
     // Update Project
     public String updateProj() {
-        
+        int check;
         Getloginid();
-        System.out.println(projstd);
-        pss.updateProject(projID, projstd);
-        return "studentPage";
+        
+        //System.out.println(projstd);
+        check = pss.checkrecord(projstd);
+        
+        if (check == 0){
+            //System.out.println(projstd);
+            pss.updateProject(projID, projstd);
+            return "studentPage";
+        }
+        else {
+            return "ProjError.xhtml";
+        }
     }
     
     //onchange event when selecting spv
@@ -269,5 +281,11 @@ public class ProjSelection implements Serializable {
         
     }
     
+    public void submitbutton (){
+        fillsupervisorList();
+    }
     
+    public void detProj (){
+        Getprojectinfo();
+    }
 }

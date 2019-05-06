@@ -16,7 +16,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -189,11 +192,19 @@ public class ProjSelection2 implements Serializable {
     
     // Update Project
     public String updateProj() {
-        
+        int check;
         Getloginid();
-        System.out.println(projstd);
-        pss.updateProject(projID, projstd);
-        return "studentPage";
+        
+        check = pss.checkrecord(projstd);
+        
+        if (check == 0){
+        //System.out.println(projstd);
+            pss.updateProject(projID, projstd);
+            return "studentPage";
+        }
+        else {
+            return "ProjError.xhtml";
+        }
     }
     
     public void ontitlechange(ValueChangeEvent event){
@@ -205,5 +216,9 @@ public class ProjSelection2 implements Serializable {
         System.out.println("proj" + projID);
         Getprojectinfo();
         
+    }
+    
+    public void submitbutton(){
+        Getprojectinfo();
     }
 }

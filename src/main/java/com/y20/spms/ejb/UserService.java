@@ -61,6 +61,7 @@ public class UserService {
             em.persist(sys_user);
             em.persist(sys_user_group);
             em.persist(s);
+            em.flush();
 
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);

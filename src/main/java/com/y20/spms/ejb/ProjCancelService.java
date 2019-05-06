@@ -8,7 +8,11 @@ package com.y20.spms.ejb;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -20,6 +24,7 @@ import javax.persistence.TypedQuery;
  */
 
 @Stateless
+@TransactionAttribute(NOT_SUPPORTED)
 public class ProjCancelService {
     
     @PersistenceContext
@@ -29,19 +34,22 @@ public class ProjCancelService {
         
     }
     
+    private static final Logger LOGGER = Logger.getLogger(ProjSelectionService.class.getName());
+    
+    @TransactionAttribute(REQUIRED)
     public void updateProject(Long id, Long stu) {
-      Student student = em.getReference(Student.class, stu);
-      Enum status;
-      status = Project.ProjectStatus.RFC;  
-      Query query = em.createQuery("UPDATE Project p SET p.student = :student, p.projectStatus = :status " +
-                                " WHERE p.id = :id");
-      query.setParameter("id", id);
-      //query.setParameter("spv", spv);   
-      query.setParameter("student", student);
-      query.setParameter("status", status);   
-
-      int updateProj = query.executeUpdate();
         
+      Student student = em.getReference(Student.class, stu);
+      Project proj;
+      
+      proj = em.find(Project.class, id);
+      proj.setStudent(student);
+      proj.setProjectStatus(Project.ProjectStatus.RFC);
+      
+      LOGGER.info("Before Commit");
+      em.persist(proj);
+      em.flush();         
+       
     }
     
     public List<Project> findAllTitle(Long stu) {
