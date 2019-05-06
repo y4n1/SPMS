@@ -31,14 +31,14 @@ public class ProjSelectionService {
         
     }
     
-    public void updateProject(Long id, Long spv, Long stu) {
+    public void updateProject(Long id, Long stu) {
       Student student = em.getReference(Student.class, stu);
       Enum status;
       status = Project.ProjectStatus.PROPOSED;    
       Query query = em.createQuery("UPDATE Project p SET p.student = :student, p.projectStatus = :status " +
-                                " WHERE p.supervisor.id = :spv and p.id = :id");
+                                " WHERE p.id = :id");
       query.setParameter("id", id);
-      query.setParameter("spv", spv);   
+      //query.setParameter("spv", spv);   
       query.setParameter("student", student);
       query.setParameter("status", status);   
 

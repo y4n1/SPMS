@@ -35,7 +35,7 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public static enum ProjectStatus {
-        ACCEPTED, PROPOSED, AVAILABLE, CANCELLED;
+        ACCEPTED, PROPOSED, AVAILABLE, CANCELLED, RFC;
     }        
 
     @Id
