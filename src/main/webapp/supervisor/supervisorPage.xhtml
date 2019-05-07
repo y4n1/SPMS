@@ -1,36 +1,28 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Student Project Management System</title>
+        <title>List of Projects</title>
     </h:head>
     <h:body>
         <h2> Student Project Management System </h2>
-        
         <f:view>
-            <h:form id="Index">
+            <h:form id="SupervisorPage">
                 <table>
                     <tr>
-                        <td> Register Student <h:link value="here" outcome="studentRegistration" /> </td>
+                        <td> Register Topic <h:link value="here" outcome="projectTopic" /> </td>
                     </tr>
                     <tr/>    
                     <tr>
-                        <td> Register Supervisor <h:link value="here" outcome="spvRegistration"/> </td>
+                        <td> Register Project <h:link value="here" outcome="projectRegistration"/> </td>
                     </tr>
                     <tr/>
                     <tr>
-                        <td> Register Topic <h:link value="here" outcome="projectTopic"/> </td>
+                        <td> Review Request <h:link value="here" outcome="projectApproval"/> </td>
                     </tr>
-                    <tr/>    
-                    <tr>
-                        <td> Register Project <h:link value="here" outcome="projectRegistration"/></td>
-                    </tr>
-                    <tr/>    
-                    <tr>
-                        <td> Cancel Project <h:link value="here" outcome="projectCancellation"/></td>
-                    </tr>
+                    <tr/>
                     <tr/>    
                     <tr>    
                         <td><h:commandButton value="Logout" action="#{login.logout()}"/> </td>
@@ -40,3 +32,4 @@
             </f:view>
     </h:body>
 </html>
+

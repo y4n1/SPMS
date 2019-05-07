@@ -60,7 +60,7 @@ public class Login implements Serializable{
         if (request.isUserInRole("Admin")) {
             return "index.xhtml";  
         } else if (request.isUserInRole("Supervisor")) {    
-            return "/faces/projectRegistration.xhtml";
+            return "/faces/supervisor/supervisorPage.xhtml";
         } else {
             return "/faces/student/studentPage.xhtml";
         }
@@ -71,7 +71,6 @@ public class Login implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
-            //this method will disassociate the principal from the session (effectively logging him/her out)
             request.logout();
             context.getExternalContext().redirect("login.xhtml");
         } catch (ServletException e) {

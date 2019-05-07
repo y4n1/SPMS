@@ -7,6 +7,7 @@ package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjCancelService;
 import com.y20.spms.ejb.ProjectService;
+import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ProjCancel {
     
     private Long projID;
     private Long projstd;
+    private String comment;
     private Project pt = new Project();
     private Student st = new Student();
     
@@ -35,6 +37,9 @@ public class ProjCancel {
     
     @EJB
     ProjectService prjSrv;
+    
+    @EJB
+    RetrieveID ri;
     
     public ProjCancel() {
 
@@ -87,8 +92,16 @@ public class ProjCancel {
     public void setProjstd(Long projstd) {
         this.projstd = projstd;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     
-    
+        
     public static class projTitle{
 	public Long ID;
 	public String Title;
@@ -138,7 +151,8 @@ public class ProjCancel {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         std = request.getRemoteUser();
-        st = prjSrv.getstuId(std);
+        System.out.println(std);
+        st = ri.getstudentID(std);
         projstd = st.getId();
         
     }   
@@ -148,8 +162,10 @@ public class ProjCancel {
         
         Getloginid();
         System.out.println(projstd);
-        pcs.updateProject(projID, projstd);
+        pcs.updateProject(projID, projstd, comment);
         return "studentPage";
     }
     
+    
+        
 }

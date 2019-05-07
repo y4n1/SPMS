@@ -7,6 +7,7 @@ package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.ejb.ProjectService;
+import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
@@ -46,6 +47,9 @@ public class ProjSelection2 implements Serializable {
     
     @EJB
     ProjectService prjSrv;
+    
+    @EJB
+    RetrieveID ri;
     
     public ProjSelection2() {
 
@@ -147,6 +151,7 @@ public class ProjSelection2 implements Serializable {
     
     // fill up project title list
     public projTitle[] fillTitleList() {
+        
         projTitle[] titleList;
         String spv;
         spv = getProjspv();
@@ -185,7 +190,7 @@ public class ProjSelection2 implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         std = request.getRemoteUser();
-        st = prjSrv.getstuId(std);
+        st = ri.getstudentID(std);
         projstd = st.getId();
         
     }   

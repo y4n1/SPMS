@@ -9,7 +9,11 @@ import com.y20.spms.ejb.TopicService;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -58,6 +62,11 @@ public class TopicRegistration implements Serializable{
     public String registerProjTopic() {
         prjSrv.registerTopic(project_title, topic_description);
         return "index";
+    }
+    
+    public String registerProjTopicSpv() {
+        prjSrv.registerTopic(project_title, topic_description);
+        return "supervisorPage";
     }
     
 }

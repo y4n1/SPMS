@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SPMS</title>
+    </h:head>
+    <h:body>
+        <h2>Approval Page</h2>
+        <f:view>
+            <h:form id="Approvalform">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="Title" value="Title:"/></td>
+                        <td><h:selectOneMenu value="#{ProjectApproval.projID}"
+                                             valueChangeListener="#{ProjectApproval.ontitlechange}">
+                                <f:selectItems id="projID" value="#{ProjectApproval.fillTitleList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
+    
+                        </h:selectOneMenu> </td>
+                        <td><h:message for="title" style="color:red" /></td>
+                        <td><h:commandButton value="..." action="#{ProjectApproval.submitbutton()}" /></td>
+                    </tr> 
+                    <tr>
+                        <td><h:outputLabel for="student" value="Student:"/></td>
+                        <td><h:outputLabel value="#{ProjectApproval.studentname}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="description" value="Description:"/></td>
+                        <td><h:outputLabel value="#{ProjectApproval.description}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="Status" value="*Status:"/></td>
+                        <td><h:selectOneMenu value="#{ProjectApproval.status}">
+                                <f:selectItem itemValue="ACCEPTED" itemLabel="APPROVED" />
+                                <f:selectItem itemValue="REJECTED" itemLabel="REJECTED" />
+                        </h:selectOneMenu> </td>
+                        <td><h:message for="Status" style="color:red" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="comment" value="*Reason:"/></td>
+                        <td><h:inputTextarea cols="30" rows="10" id="comment" value="#{ProjectApproval.comment}"
+                            required="true" requiredMessage="Please enter the comment" /></td>
+                        <td><h:message for="comment" style="color:red" /></td>
+                    </tr>
+                    <tr/>
+                    <tr>
+                        <td><h:commandButton value="Submit" action="#{ProjectApproval.updateProj()}" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLink value="supervisorPage.xhtml">Home</h:outputLink></td>
+                    </tr>
+                 </table>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

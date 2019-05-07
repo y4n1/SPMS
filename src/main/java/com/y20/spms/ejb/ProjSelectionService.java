@@ -8,6 +8,7 @@ package com.y20.spms.ejb;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -38,6 +39,8 @@ public class ProjSelectionService {
     
     private static final Logger LOGGER = Logger.getLogger(ProjSelectionService.class.getName());
     
+    
+    // Update project to proposed & fill student ID
     @TransactionAttribute(REQUIRED) 
     public void updateProject(Long id, Long stu) {
       Student student = em.getReference(Student.class, stu);
@@ -52,6 +55,8 @@ public class ProjSelectionService {
       em.flush();       
         
     }
+    
+    // Get all supervisor for available project
     public List<Supervisor> findAllSupervisor() {
         Enum status;
         status = Project.ProjectStatus.AVAILABLE;
@@ -64,6 +69,7 @@ public class ProjSelectionService {
         return q.getResultList();               
     }   
    
+    // Get all available project by title
     public List<Project> findAllTitle() {
         Enum status;
         status = Project.ProjectStatus.AVAILABLE;
@@ -73,6 +79,7 @@ public class ProjSelectionService {
         return q.getResultList();               
     }
     
+    // Get available project by supervisor
     public List<Project> findTitlebyspv(Long spv) {
         Enum status;
         status = Project.ProjectStatus.AVAILABLE;
@@ -83,6 +90,7 @@ public class ProjSelectionService {
         return q.getResultList();               
     }
     
+    // Get project detail by ID
     public Project findDetail(Long ID) {
         String query = "select p from Project p where p.id = :ID";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
@@ -90,6 +98,7 @@ public class ProjSelectionService {
         return q.getSingleResult();               
     }
     
+    // find supervisor by title
     public List<Project> findspvbytitle(String title) {
         String query = "select p from Project p where p.title = :title";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
@@ -97,15 +106,23 @@ public class ProjSelectionService {
         return q.getResultList();                
     }
     
-    // to check if student have apply for any project
+    // to check if student have applied for any project
     public Integer checkrecord(Long stuID){
-        Enum status;
-        status = Project.ProjectStatus.PROPOSED;
+        Enum status1, status2, status3;
+        status1 = Project.ProjectStatus.ACCEPTED;
+        status2 = Project.ProjectStatus.PROPOSED;
+        status3 = Project.ProjectStatus.RFC;
+
         //Student student = em.getReference(Student.class, stuID);
-        String query = "select p from Project p where p.student.id = :stuID and p.projectStatus = :status";
+        String query = "select p from Project p where p.student.id = :stuID " +
+                " and (p.projectStatus <> :status1 " +
+                " or p.projectStatus <> :status2 " +
+                " or p.projectStatus <> :status3) ";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
         q.setParameter("stuID", stuID);
-        q.setParameter("status", status);
+        q.setParameter("status1", status1);
+        q.setParameter("status2", status2);
+        q.setParameter("status3", status3);
         System.out.println(q.getResultList().size());
         if (q.getResultList().size() > 0){
             return 1;

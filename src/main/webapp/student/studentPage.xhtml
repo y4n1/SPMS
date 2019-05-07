@@ -7,20 +7,21 @@
         <title>List of Projects</title>
     </h:head>
     <h:body>
+        <h2> Student Project Management System </h2>
         <f:view>
-            <h:form id="ProjectSelection">
+            <h:form id="StudentPage">
                 <table>
                     <tr>
-                        <td><h:commandButton value="Search by Supervisor" action="ProjectbySpv.xhtml" /></td>
+                        <td>Search by Supervisor <h:link value="here" outcome="ProjectbySpv"/></td>
                     </tr>
                     <tr>
-                        <td><h:commandButton value="Search by Title" action="ProjectbyTitle.xhtml"/></td>
+                        <td>Search by Title <h:link value="here" outcome="ProjectbyTitle"/></td>
                     </tr>
                     <tr>
-                        <td><h:commandButton value="Propose Own Topic" action="projectPropose.xhtml"/></td>
+                        <td>Propose Own Topic <h:link value="here" outcome="projectPropose"/></td>
                     </tr>
                     <tr>
-                        <td><h:commandButton value="Request to Cancel" action="RequestCancel.xhtml"/></td>
+                        <td>Request to Cancel <h:link value="here" outcome="RequestCancel"/></td>
                     </tr>
                     <tr>
                         <td>Logout: <h:commandButton value="Logout" action="#{login.logout()}"/></td>

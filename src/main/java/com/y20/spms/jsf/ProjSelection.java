@@ -7,6 +7,7 @@ package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.ProjSelectionService;
+import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
@@ -51,6 +52,9 @@ public class ProjSelection implements Serializable {
     
     @EJB
     ProjectService prjSrv;
+    
+    @EJB
+    RetrieveID ri;
     
     public ProjSelection() {
 
@@ -231,14 +235,14 @@ public class ProjSelection implements Serializable {
         //System.out.println(projdecr);
     }
     
-    // Retrieve login ID
+    //Retrieve login ID
     public void Getloginid() {
         String std;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         std = request.getRemoteUser();
-        st = prjSrv.getstuId(std);
+        st = ri.getstudentID(std);
         projstd = st.getId();
         
     }   

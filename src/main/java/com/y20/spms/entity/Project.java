@@ -35,7 +35,7 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public static enum ProjectStatus {
-        ACCEPTED, PROPOSED, AVAILABLE, CANCELLED, RFC;
+        ACCEPTED, PROPOSED, AVAILABLE, CANCELLED, RFC, REJECTED;
     }        
 
     @Id
@@ -51,6 +51,10 @@ public class Project implements Serializable {
     @Column(name = "required_skills", nullable = false, length = 500)
     private String requiredSkills;
    
+    // comment for cancellation / rejection
+    @Column(name = "reason", nullable = true, length = 500)
+    private String reason;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "project_status", nullable = false, length = 20)
     private ProjectStatus projectStatus;
@@ -76,6 +80,9 @@ public class Project implements Serializable {
         joinColumns = @JoinColumn(name = "project_id"),
         inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
+    
+    
+    
     private Set<ProjectTopic> topics = new LinkedHashSet<>();
     
 
@@ -125,6 +132,22 @@ public class Project implements Serializable {
 
     public void setSupervisor(Supervisor supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Set<ProjectTopic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<ProjectTopic> topics) {
+        this.topics = topics;
     }
 
 

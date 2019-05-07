@@ -37,7 +37,7 @@ public class ProjCancelService {
     private static final Logger LOGGER = Logger.getLogger(ProjSelectionService.class.getName());
     
     @TransactionAttribute(REQUIRED)
-    public void updateProject(Long id, Long stu) {
+    public void updateProject(Long id, Long stu, String comment) {
         
       Student student = em.getReference(Student.class, stu);
       Project proj;
@@ -45,6 +45,7 @@ public class ProjCancelService {
       proj = em.find(Project.class, id);
       proj.setStudent(student);
       proj.setProjectStatus(Project.ProjectStatus.RFC);
+      proj.setReason(comment);
       
       LOGGER.info("Before Commit");
       em.persist(proj);

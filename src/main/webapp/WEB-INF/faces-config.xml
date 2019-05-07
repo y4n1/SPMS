@@ -20,21 +20,64 @@
         <from-view-id>/student/studentPage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>projectPropose</from-outcome>
-            <to-view-id>/projectPropose.xhtml</to-view-id>
+            <to-view-id>/student/projectPropose.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/student/studentPage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>ProjectbySpv</from-outcome>
-            <to-view-id>/ProjectbySpv.xhtml</to-view-id>
+            <to-view-id>/student/ProjectbySpv.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+        <navigation-case>
+            <from-outcome>ProjectbyTitle</from-outcome>
+            <to-view-id>/student/ProjectbyTitle.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>RequestCancel</from-outcome>
+            <to-view-id>/student/RequestCancel.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>   
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>Supervisor</from-outcome>
-            <to-view-id>/student/studentPage.xhtml</to-view-id>
+            <to-view-id>/supervisor/supervisorPage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/supervisor/supervisorPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>projectTopic</from-outcome>
+            <to-view-id>/supervisor/projectTopicSpv.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>projectRegistration</from-outcome>
+            <to-view-id>/supervisor/projectRegistrationSpv.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>projectApproval</from-outcome>
+            <to-view-id>/supervisor/projectApproval.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/projectTopic.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>supervisorPage</from-outcome>
+            <to-view-id>/supervisor/supervisorPage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/supervisor/projectRegistrationSpv.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>projectTopicspv</from-outcome>
+            <to-view-id>/supervisor/projectTopicSpv.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>supervisorPage</from-outcome>
+            <to-view-id>/supervisor/supervisorPage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Project Registration Form</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form id="projectCancellation">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="Title" value="Title:"/></td>
+                        <td><h:selectOneMenu value="#{ProjectCancellation.projID}"
+                                             valueChangeListener="#{ProjectCancellation.ontitlechange}">
+                                <f:selectItems id="projID" value="#{ProjectCancellation.fillTitleList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
+    
+                        </h:selectOneMenu> </td>
+                        <td><h:message for="title" style="color:red" /></td>
+                        <td><h:commandButton value="..." action="#{ProjectCancellation.submitbutton()}" /></td>
+                    </tr> 
+                    <tr>
+                        <td><h:outputLabel for="Student" value="Student:"/></td>
+                        <td><h:outputLabel value="#{ProjectCancellation.studentname}"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="comment" value="Comment:"/></td>
+                        <td><h:outputLabel value="#{ProjectCancellation.comment}"/></td>
+                    </tr>
+                    <tr/>
+                    <tr>
+                        <td><h:commandButton value="Submit" action="#{ProjectCancellation.updateProj()}" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:commandButton value="Back" action="index" /></td>
+                    </tr>
+                 </table>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+
