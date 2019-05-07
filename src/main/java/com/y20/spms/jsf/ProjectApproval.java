@@ -207,7 +207,9 @@ public class ProjectApproval {
     public void Getprojectdetail() {
         //Long titleid;
         //titleid = getProjID();
+        System.out.println("This is " + projID);
         pt = pas.findprojdecr(projID);
+        
         this.setStudentname(pt.getStudent().getFname() + " " + pt.getStudent().getLname());
         this.setStudentid(pt.getStudent().getId());
         this.setDescription(pt.getDescription());
@@ -231,9 +233,11 @@ public class ProjectApproval {
         projID = Long.parseLong(newvalue);
         System.out.println(newvalue);
     }
-    
-    public void submitbutton (){
+
+    public void searchdetail (){
+        System.out.println("I AM IN");
         Getprojectdetail();
+        System.out.println("I AM HERE");
     }
     
 }

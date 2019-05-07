@@ -9,18 +9,17 @@
     <h:body>
         <h2>Approval Page</h2>
         <f:view>
-            <h:form id="Approvalform">
+            <h:form id="ProjectApproval">
                 <table>
                     <tr>
-                        <td><h:outputLabel for="Title" value="Title:"/></td>
+                        <td><h:outputLabel for="title" value="Title:"/></td>
                         <td><h:selectOneMenu value="#{ProjectApproval.projID}"
                                              valueChangeListener="#{ProjectApproval.ontitlechange}">
-                                <f:selectItems id="projID" value="#{ProjectApproval.fillTitleList()}" var="pt"  itemLabel="#{pt.title}" itemValue="#{pt.ID}"/>
-    
+                                <f:selectItems id="title" value="#{ProjectApproval.fillTitleList()}" var="p"  itemLabel="#{p.title}" itemValue="#{p.ID}"/>
                         </h:selectOneMenu> </td>
-                        <td><h:message for="title" style="color:red" /></td>
-                        <td><h:commandButton value="..." action="#{ProjectApproval.submitbutton()}" /></td>
-                    </tr> 
+                        <td><h:commandButton value="..." action="#{ProjectApproval.searchdetail()}" /></td>
+                        <td><h:message for="supervisor" style="color:red" /></td>
+                    </tr>   
                     <tr>
                         <td><h:outputLabel for="student" value="Student:"/></td>
                         <td><h:outputLabel value="#{ProjectApproval.studentname}"/></td>
@@ -30,19 +29,15 @@
                         <td><h:outputLabel value="#{ProjectApproval.description}"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel for="Status" value="*Status:"/></td>
+                        <td><h:outputLabel for="acceptance" value="*Acceptance:"/></td>
                         <td><h:selectOneMenu value="#{ProjectApproval.status}">
                                 <f:selectItem itemValue="ACCEPTED" itemLabel="APPROVED" />
                                 <f:selectItem itemValue="REJECTED" itemLabel="REJECTED" />
                         </h:selectOneMenu> </td>
-                        <td><h:message for="Status" style="color:red" /></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel for="comment" value="*Reason:"/></td>
-                        <td><h:inputTextarea cols="30" rows="10" id="comment" value="#{ProjectApproval.comment}"
-                            required="true" requiredMessage="Please enter the comment" /></td>
-                        <td><h:message for="comment" style="color:red" /></td>
-                    </tr>
+                    <td><h:message for="status" style="color:red" /></td>
+                    </tr>  
+                    
+                    <tr/>
                     <tr/>
                     <tr>
                         <td><h:commandButton value="Submit" action="#{ProjectApproval.updateProj()}" /></td>

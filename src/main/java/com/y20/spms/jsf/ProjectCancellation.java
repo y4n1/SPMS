@@ -172,7 +172,7 @@ public class ProjectCancellation {
         LOGGER.info("Data updated");
         //pcs.insertProject(projID, studentid);
         //LOGGER.info("Data inserted");
-        return "studentPage";
+        return "index";
     }
     
 }

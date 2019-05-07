@@ -115,9 +115,9 @@ public class ProjSelectionService {
 
         //Student student = em.getReference(Student.class, stuID);
         String query = "select p from Project p where p.student.id = :stuID " +
-                " and (p.projectStatus <> :status1 " +
-                " or p.projectStatus <> :status2 " +
-                " or p.projectStatus <> :status3) ";
+                " and (p.projectStatus = :status1 " +
+                " or p.projectStatus = :status2 " +
+                " or p.projectStatus = :status3) ";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
         q.setParameter("stuID", stuID);
         q.setParameter("status1", status1);
