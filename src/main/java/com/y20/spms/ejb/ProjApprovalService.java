@@ -55,17 +55,20 @@ public class ProjApprovalService {
     
     // Update Record
     @TransactionAttribute(REQUIRED)
-    public void updateProject(Long id, String status) {
+    public void updateProject(Long id, String status, String comment) {
       
       Project proj1;
       
       // Update
       proj1 = em.find(Project.class, id);
       
-      if (status == "APPROVED"){ 
+      System.out.println(status);
+      if ("ACCEPTED".equals(status)){ 
             proj1.setProjectStatus(Project.ProjectStatus.ACCEPTED);
+            proj1.setReason(comment);
       }else {
             proj1.setProjectStatus(Project.ProjectStatus.REJECTED);
+            proj1.setReason(comment);
       }
     
       em.persist(proj1);

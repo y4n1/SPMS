@@ -10,6 +10,7 @@ import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named("ProjCancel")
 @RequestScoped
-public class ProjCancel {
+public class ProjCancel implements Serializable{
     
     private Long projID;
     private Long projstd;

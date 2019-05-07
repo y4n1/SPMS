@@ -58,7 +58,7 @@ public class Login implements Serializable{
         
         System.out.println(request.getRequestURI());
         if (request.isUserInRole("Admin")) {
-            return "index.xhtml";  
+            return "/faces/admin/index.xhtml";  
         } else if (request.isUserInRole("Supervisor")) {    
             return "/faces/supervisor/supervisorPage.xhtml";
         } else {

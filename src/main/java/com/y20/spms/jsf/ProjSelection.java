@@ -280,8 +280,8 @@ public class ProjSelection implements Serializable {
         selecttitle = event.getNewValue().toString();
         projID = Long.parseLong(selecttitle);
         this.setProjID(projID);
-        System.out.println("proj" + projID);
-        Getprojectinfo();
+       // System.out.println("proj" + projID);
+        //Getprojectinfo();
         
     }
     

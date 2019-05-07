@@ -9,6 +9,7 @@ import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.ejb.ProjectCancellationService;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -23,7 +24,7 @@ import javax.inject.Named;
 
 @Named("ProjectCancellation")
 @RequestScoped
-public class ProjectCancellation {
+public class ProjectCancellation implements Serializable{
     
     private String studentname;
     private Long projID;

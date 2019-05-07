@@ -10,6 +10,7 @@ import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Named("ProjectApproval")
 @RequestScoped
-public class ProjectApproval {
+public class ProjectApproval implements Serializable{
     
     private String studentname;
     private Long projID;
@@ -202,24 +203,22 @@ public class ProjectApproval {
         
     }   
     
-    //get project detail
     // get detail project    
     public void Getprojectdetail() {
-        //Long titleid;
-        //titleid = getProjID();
-        System.out.println("This is " + projID);
+
         pt = pas.findprojdecr(projID);
         
         this.setStudentname(pt.getStudent().getFname() + " " + pt.getStudent().getLname());
         this.setStudentid(pt.getStudent().getId());
         this.setDescription(pt.getDescription());
+        this.setComment(comment);
     }
    
     // Update project
     public String updateProj() {
         
         Getloginid();
-        pas.updateProject(projID, status);
+        pas.updateProject(projID, status, comment);
         LOGGER.info("Data updated");
         return "supervisorPage";
     }
@@ -235,9 +234,7 @@ public class ProjectApproval {
     }
 
     public void searchdetail (){
-        System.out.println("I AM IN");
         Getprojectdetail();
-        System.out.println("I AM HERE");
     }
     
 }

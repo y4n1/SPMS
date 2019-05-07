@@ -219,7 +219,7 @@ public class ProjSelection2 implements Serializable {
         projID = Long.parseLong(selecttitle);
         this.setProjID(projID);
         System.out.println("proj" + projID);
-        Getprojectinfo();
+       // Getprojectinfo();
         
     }
     

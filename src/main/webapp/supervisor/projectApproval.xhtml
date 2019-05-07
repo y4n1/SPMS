@@ -31,12 +31,17 @@
                     <tr>
                         <td><h:outputLabel for="acceptance" value="*Acceptance:"/></td>
                         <td><h:selectOneMenu value="#{ProjectApproval.status}">
-                                <f:selectItem itemValue="ACCEPTED" itemLabel="APPROVED" />
+                                <f:selectItem itemValue="ACCEPTED" itemLabel="ACCEPTED" />
                                 <f:selectItem itemValue="REJECTED" itemLabel="REJECTED" />
                         </h:selectOneMenu> </td>
                     <td><h:message for="status" style="color:red" /></td>
                     </tr>  
-                    
+                    <tr>
+                        <td><h:outputLabel for="comment" value="*Comment"/></td>
+                        <td><h:inputTextarea cols="30" rows="10" id="comment" value="#{ProjectApproval.comment}" /></td>
+<!--                            required="true" requiredMessage="Please insert the Comment" /></td>
+                        <td><h:message for="comment" style="color:red" /></td>-->
+                    </tr>
                     <tr/>
                     <tr/>
                     <tr>

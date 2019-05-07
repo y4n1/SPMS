@@ -12,6 +12,10 @@
             <h:form id="SupervisorPage">
                 <table>
                     <tr>
+                        <td><h:outputLabel for="notif" value="You have project request: "/>
+                        <h:outputLabel value="#{Supervisornotif.total}"/></td>
+                    </tr>
+                    <tr>
                         <td> Register Topic <h:link value="here" outcome="projectTopic" /> </td>
                     </tr>
                     <tr/>    
@@ -21,6 +25,9 @@
                     <tr/>
                     <tr>
                         <td> Review Request <h:link value="here" outcome="projectApproval"/> </td>
+                    </tr>
+                    <tr>
+                        <td> Display Report <h:link value="here" outcome="SpvReportPage"/> </td>
                     </tr>
                     <tr/>
                     <tr/>    
