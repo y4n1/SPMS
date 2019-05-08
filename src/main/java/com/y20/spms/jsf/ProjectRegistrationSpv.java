@@ -5,12 +5,16 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.ProjectTopic;
 import com.y20.spms.entity.Supervisor;
 import com.y20.spms.entity.SystemUser;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,14 +37,21 @@ public class ProjectRegistrationSpv implements Serializable{
     private String requiredskill;
     private Long projspv;
     private Long projtopic;
+    private String std;
     private ProjectTopic projectTopic = new ProjectTopic();
     private Supervisor sv = new Supervisor();
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
+    
     
     @EJB
     ProjectService prjSrv;
     
     @EJB
     RetrieveID ri;
+    
+    @EJB
+    ProjLoggingService pls;
     
     private static final Logger LOGGER = Logger.getLogger(ProjectRegistrationSpv.class.getName());
     
@@ -121,14 +132,46 @@ public class ProjectRegistrationSpv implements Serializable{
     public void setRi(RetrieveID ri) {
         this.ri = ri;
     }
+
+    public String getStd() {
+        return std;
+    }
+
+    public void setStd(String std) {
+        this.std = std;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Timestamp getTs() {
+        return ts;
+    }
+
+    public void setTs(Timestamp ts) {
+        this.ts = ts;
+    }
     
+        
     
     
     //register project
     public String registerProj() {
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         Getloginid();
         prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
         LOGGER.log(Level.INFO, "Project {0} is added by {1}", new Object[]{projtitle, projspv});
+        
+        // log
+        pls.insertLog(std, formattedDate, "ProjectRegistrationSpv", "Register New Project");
+        
         return "supervisorPage.xhtml";
     }
     
@@ -176,7 +219,7 @@ public class ProjectRegistrationSpv implements Serializable{
     
     //Retrieve login ID
     public void Getloginid() {
-        String std;
+        
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         

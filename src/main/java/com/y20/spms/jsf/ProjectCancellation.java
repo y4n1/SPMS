@@ -5,11 +5,15 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.ejb.ProjectCancellationService;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,9 +37,14 @@ public class ProjectCancellation implements Serializable{
     private String comment;
     private Project pt = new Project();
     private Student st = new Student();
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
     
     @EJB
     ProjectCancellationService pcs;
+    
+    @EJB
+    ProjLoggingService pls;
        
     private static final Logger LOGGER = Logger.getLogger(ProjectCancellation.class.getName());
     
@@ -168,10 +177,17 @@ public class ProjectCancellation implements Serializable{
     
     public String updateProj() {
         
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         //Getloginid();
-        System.out.println(projID);
+        //System.out.println(projID);
         pcs.updateProject(projID);
         LOGGER.log(Level.INFO, "{0} is updated", projID);
+        
+        // log
+        pls.insertLog("admin", formattedDate, "ProjectCancellation", "Cancelling Project");
+        
         //pcs.insertProject(projID, studentid);
         //LOGGER.info("Data inserted");
         return "index";

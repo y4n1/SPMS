@@ -5,13 +5,17 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.ProjectTopic;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +44,12 @@ public class ProjectRegistration implements Serializable {
     private Long projspv;
     private Long projtopic;
     private Long student;
+    private  String std;
     private Supervisor supervisor = new Supervisor();
     private ProjectTopic projectTopic = new ProjectTopic();
     private Student st = new Student();
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
    
    
     
@@ -51,6 +58,9 @@ public class ProjectRegistration implements Serializable {
     
     @EJB
     RetrieveID ri;
+    
+    @EJB
+    ProjLoggingService pls;
     
     private static final Logger LOGGER = Logger.getLogger(ProjectRegistration.class.getName());
     
@@ -138,21 +148,62 @@ public class ProjectRegistration implements Serializable {
     public void setSt(Student st) {
         this.st = st;
     }
+
+    public String getStd() {
+        return std;
+    }
+
+    public void setStd(String std) {
+        this.std = std;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Timestamp getTs() {
+        return ts;
+    }
+
+    public void setTs(Timestamp ts) {
+        this.ts = ts;
+    }
+    
+    
+    
     
        
     
     //call the injected EJB 
     //register project
     public String registerProj() {
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
+        
+        //Log
+        // log
+        pls.insertLog(std, formattedDate, "ProjRegistration", "Register Project");
+        
         LOGGER.log(Level.INFO, "Project{0} is added", projtitle);
         return "index";
     }
       
     //propose project
     public String proposeProj() {
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         int check;
         Getloginid();
+        
+        // log
+        pls.insertLog(std, formattedDate, "ProjRegistration", "Propose Project");
         
         check = prjSrv.checkrecord(student);
         
@@ -260,7 +311,7 @@ public class ProjectRegistration implements Serializable {
     
     // Retrieve login ID
     public void Getloginid() {
-        String std;
+       
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         

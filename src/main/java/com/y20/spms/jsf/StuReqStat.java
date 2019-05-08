@@ -5,11 +5,15 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.ejb.StuReqStatService;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import static java.util.Objects.isNull;
 import java.util.logging.Level;
@@ -33,12 +37,18 @@ public class StuReqStat implements Serializable{
     private Long studentid;
     private Project pt = new Project();
     private Student st = new Student();
+    private String std;
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
     
     @EJB
     StuReqStatService srss;
     
     @EJB
     RetrieveID ri;
+    
+    @EJB
+    ProjLoggingService pls;
     
     private static final Logger LOGGER = Logger.getLogger(StuReqStat.class.getName());
     
@@ -87,13 +97,40 @@ public class StuReqStat implements Serializable{
     public void setRi(RetrieveID ri) {
         this.ri = ri;
     }
+
+    public String getStd() {
+        return std;
+    }
+
+    public void setStd(String std) {
+        this.std = std;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Timestamp getTs() {
+        return ts;
+    }
+
+    public void setTs(Timestamp ts) {
+        this.ts = ts;
+    }
+    
+    
+    
     
     // End getter & setter
     
     //Retrieve login ID
     @PostConstruct 
     public void Getloginid() {
-        String std;
+        
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
@@ -185,7 +222,14 @@ public class StuReqStat implements Serializable{
     
     public String projectStatus(){
         
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         fillProjectList();
+        
+        // log
+        pls.insertLog(std, formattedDate, "StuReqStat", "Checking Request Status");
+        
         return "StuRequestStatus";
         
     }

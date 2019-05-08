@@ -10,7 +10,7 @@
     	
     	<h1>Project List</h1>
     	
-        <h:dataTable value="#{AdminReport.fillTitleList()}" var="s"
+        <h:dataTable value="#{ProjLogging.FillLogReport()}" var="l"
     			styleClass="order-table"
     			headerClass="order-table-header"
     			rowClasses="order-table-odd-row,order-table-even-row"
@@ -18,37 +18,29 @@
 
     			<h:column>
     				<!-- column header -->
-    				<f:facet name="header">Supervisor</f:facet>
+    				<f:facet name="header">Username</f:facet>
     				<!-- row record -->
-    				#{s.spvname}
+    				#{l.username}
     			</h:column>
               			
     			<h:column>
-    				<f:facet name="header">Project Title</f:facet>
-    				#{s.title}
+    				<f:facet name="header">Date</f:facet>
+    				#{l.getdDate()}
     			</h:column>
     			
     			<h:column>
-    				<f:facet name="header">Description</f:facet>
-    				#{s.prjDescription}
+    				<f:facet name="header">Form</f:facet>
+    				#{l.form}
     			</h:column>
     			
     			<h:column>
-    				<f:facet name="header">Comment</f:facet>
-    				#{s.prjComment}
-    			</h:column>
-                        <h:column>
-    				<f:facet name="header">Student</f:facet>
-    				#{s.stuname}
-    			</h:column>
-                        <h:column>
-    				<f:facet name="header">Status</f:facet>
-    				#{s.status}
+    				<f:facet name="header">Activity</f:facet>
+    				#{l.activity}
     			</h:column>
     		
     		</h:dataTable>
         <h:form>
-                <h:commandButton value="Back" action="SpvReportPage" />
+                <h:commandButton value="Back" action="index" />
         </h:form>        
     </h:body>
 </html>

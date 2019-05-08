@@ -5,12 +5,16 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.ProjSelectionService;
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,9 +43,11 @@ public class ProjSelection2 implements Serializable {
     private String requiredskill;
     private String projspv;
     private Long projstd;
+    private String std;
     private Project pt = new Project();
     private Student st = new Student();
-    //private HtmlSelectOneMenu selectedPage = new HtmlSelectOneMenu();
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
     
 
     @EJB
@@ -52,6 +58,9 @@ public class ProjSelection2 implements Serializable {
     
     @EJB
     RetrieveID ri;
+    
+    @EJB
+    ProjLoggingService pls;
     
     private static final Logger LOGGER = Logger.getLogger(ProjSelection2.class.getName());
     
@@ -130,6 +139,31 @@ public class ProjSelection2 implements Serializable {
     public void setPrjSrv(ProjectService prjSrv) {
         this.prjSrv = prjSrv;
     }
+
+    public String getStd() {
+        return std;
+    }
+
+    public void setStd(String std) {
+        this.std = std;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Timestamp getTs() {
+        return ts;
+    }
+
+    public void setTs(Timestamp ts) {
+        this.ts = ts;
+    }
+    
     
     
     public static class projTitle{
@@ -189,7 +223,7 @@ public class ProjSelection2 implements Serializable {
     
     // Retrieve login ID
     public void Getloginid() {
-        String std;
+        
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
@@ -202,9 +236,15 @@ public class ProjSelection2 implements Serializable {
     // Update Project
     public String updateProj() {
         int check;
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         Getloginid();
         
         LOGGER.log(Level.INFO, "User {0}Is applying for project {1}", new Object[]{projstd, projID});
+        
+        // log
+        pls.insertLog(std, formattedDate, "ProjSelection2", "Request Project");
         
         check = pss.checkrecord(projstd);
         

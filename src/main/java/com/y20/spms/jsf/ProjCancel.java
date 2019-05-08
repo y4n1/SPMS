@@ -6,12 +6,16 @@
 package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjCancelService;
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.ProjectCancellationService;
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +39,9 @@ public class ProjCancel implements Serializable{
     private String comment;
     private Project pt = new Project();
     private Student st = new Student();
+    private String std;
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
     
     @EJB
     ProjCancelService pcs;
@@ -44,6 +51,9 @@ public class ProjCancel implements Serializable{
     
     @EJB
     RetrieveID ri;
+    
+    @EJB
+    ProjLoggingService pls;
     
     private static final Logger LOGGER = Logger.getLogger(ProjCancel.class.getName());
     
@@ -106,6 +116,24 @@ public class ProjCancel implements Serializable{
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getStd() {
+        return std;
+    }
+
+    public void setStd(String std) {
+        this.std = std;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
     
         
     public static class projTitle{
@@ -152,7 +180,6 @@ public class ProjCancel implements Serializable{
     // Retrieve login ID
     @PostConstruct
     public void Getloginid() {
-        String std;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
@@ -165,10 +192,12 @@ public class ProjCancel implements Serializable{
     
     // Update Project
     public String updateProj() {
-        
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
         Getloginid();
         LOGGER.log(Level.INFO, "Student {0}is requesting for cancellation of Project {1}", new Object[]{projstd, projID});
         pcs.updateProject(projID, projstd, comment);
+        pls.insertLog(std, formattedDate, "ProjCancel", "Request Cancellation");
         return "studentPage";
     }
     

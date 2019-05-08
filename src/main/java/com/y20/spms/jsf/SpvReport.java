@@ -5,12 +5,16 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.ejb.SpvReportService;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import static java.util.Objects.isNull;
@@ -34,15 +38,21 @@ public class SpvReport implements Serializable{
     
     private Long studentid;
     private Long spvid;
+    private String std;
     private Project pt = new Project();
     private Student st = new Student();
     private Supervisor sv = new Supervisor();
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
             
     @EJB
     SpvReportService srs;
     
     @EJB
     RetrieveID ri;
+    
+    @EJB
+    ProjLoggingService pls;
             
     private static final Logger LOGGER = Logger.getLogger(SpvReport.class.getName());
     
@@ -108,14 +118,40 @@ public class SpvReport implements Serializable{
         this.ri = ri;
     }
 
+    public String getStd() {
+        return std;
+    }
+
+    public void setStd(String std) {
+        this.std = std;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Timestamp getTs() {
+        return ts;
+    }
+
+    public void setTs(Timestamp ts) {
+        this.ts = ts;
+    }
+
    
+    
+    
     
     // end getter & setter
     
     //Retrieve login ID
     @PostConstruct 
     public void Getloginid() {
-        String std;
+        
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
@@ -192,7 +228,9 @@ public class SpvReport implements Serializable{
             
             while (i < ttlrec) {
                 
-                if (isNull(prjtitleall.get(i).getStudent().getId())){
+                if (prjtitleall.get(i).getStudent() == null){
+                    System.out.println("check id");
+                    
                     stuname = "";
                 }else{
                     stuname = prjtitleall.get(i).getStudent().getFname() + " " + prjtitleall.get(i).getStudent().getLname();
@@ -285,7 +323,14 @@ public class SpvReport implements Serializable{
     
     public String submitbutton(){
         
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         fillTitleList();
+        
+        // log
+        pls.insertLog(std, formattedDate, "SpvReport", "Extract Report");
+        
         return "supervisorReport";
         
     }

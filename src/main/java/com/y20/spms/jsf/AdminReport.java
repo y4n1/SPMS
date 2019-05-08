@@ -91,15 +91,15 @@ public class AdminReport implements Serializable{
     
     // Retrieve Project by spv
      public static class projspv{
-	//public String Stuname;
+	public String Stuname;
         public String Spvname;
 	public String Title;
         public String Status;
         public String prjDescription;
         public String prjComment;
 		
-	public projspv(String SpvName, String Title, String Status, String Description, String Comment){
-		//this.Stuname = StudentName;
+	public projspv(String Stuname, String SpvName, String Title, String Status, String Description, String Comment){
+		this.Stuname = Stuname;
                 this.Spvname = SpvName;
 		this.Title = Title;
                 this.Status = Status;
@@ -108,9 +108,9 @@ public class AdminReport implements Serializable{
 	}
 
         
-//	public String getStuname() {
-//            return Stuname;
-//        }
+	public String getStuname() {
+            return Stuname;
+        }
 
         public String getTitle() {
             return Title;
@@ -140,7 +140,7 @@ public class AdminReport implements Serializable{
     public projspv[] fillTitleList() {
         projspv[] projlist;
        
-   //     String Stuname;
+        String Stuname;
         String Spvname;
 	String Title;
         String Status;
@@ -160,11 +160,11 @@ public class AdminReport implements Serializable{
             
             while (i < ttlrec) {
                 
-//                if (isNull(prjtitleall.get(i).getStudent().getId())){
-//                    Stuname = "";
-//                }else{
-//                    Stuname = prjtitleall.get(i).getStudent().getFname() + " " + prjtitleall.get(i).getStudent().getLname();
-//                }
+                if (prjtitleall.get(i).getStudent() == null){
+                    Stuname = "";
+                }else{
+                    Stuname = prjtitleall.get(i).getStudent().getFname() + " " + prjtitleall.get(i).getStudent().getLname();
+                }
                 Spvname = prjtitleall.get(i).getSupervisor().getFname() + " " + prjtitleall.get(i).getSupervisor().getLname();
                 if (isNull(prjtitleall.get(i).getId())){
                     Title = "";
@@ -177,7 +177,7 @@ public class AdminReport implements Serializable{
                     prjDescription = prjtitleall.get(i).getDescription();
                     prjComment = prjtitleall.get(i).getReason();
                 }    
-                projlist[i] = new projspv(Spvname, Title, Status, prjDescription, prjDescription); 
+                projlist[i] = new projspv(Stuname, Spvname, Title, Status, prjDescription, prjDescription); 
             
             i = i+1;
         }    
@@ -189,17 +189,17 @@ public class AdminReport implements Serializable{
             
             while (i < ttlrec) {
             
-//                if (isNull(prjtitlespv.get(i).getStudent().getId())){
-//                    Stuname = "";
-//                }else{
-//                    Stuname = prjtitlespv.get(i).getStudent().getFname() + " " + prjtitlespv.get(i).getStudent().getLname();
-//                }
+               if (prjtitlespv.get(i).getStudent() == null){
+                    Stuname = "";
+               }else{
+                    Stuname = prjtitlespv.get(i).getStudent().getFname() + " " + prjtitlespv.get(i).getStudent().getLname();
+               }
                 Spvname = prjtitlespv.get(i).getSupervisor().getFname() + " " + prjtitlespv.get(i).getSupervisor().getLname();
                 Title = prjtitlespv.get(i).getTitle();
                 Status = String.valueOf(prjtitlespv.get(i).getProjectStatus());
                 prjDescription = prjtitlespv.get(i).getDescription();
                 prjComment = prjtitlespv.get(i).getReason();
-                projlist[i] = new projspv(Spvname, Title, Status, prjDescription, prjDescription); 
+                projlist[i] = new projspv(Stuname, Spvname, Title, Status, prjDescription, prjDescription); 
             
             i = i+1;
             }
@@ -278,7 +278,7 @@ public class AdminReport implements Serializable{
             
             while (i < ttlrec) {
                 
-                if (isNull(prjstudentall.get(i).getStudent().getId())){
+                if (prjstudentall.get(i).getStudent() == null){
                     Stuname = "";
                 }else{
                     Stuname = prjstudentall.get(i).getStudent().getFname() + " " + prjstudentall.get(i).getStudent().getLname();

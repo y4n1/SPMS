@@ -5,8 +5,11 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -15,6 +18,8 @@ import javax.inject.Named;
 import javax.management.relation.Role;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -27,7 +32,12 @@ public class Login implements Serializable{
     
     private String username;
     private String password;
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
 
+    @EJB
+    ProjLoggingService pls;
+    
     public String getUsername() {
         return username;
     }
@@ -44,7 +54,24 @@ public class Login implements Serializable{
         this.password = password;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    
+
     public String login() {
+        
+       // insert Log
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
+        pls.insertLog(username, formattedDate, "Login", "Sign in");
+       
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         System.out.println("Username: " + username);

@@ -5,10 +5,14 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.UserService;
 import static com.y20.spms.entity.SystemUserGroup_.username;
 import static com.y20.spms.entity.SystemUser_.userpassword;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -37,9 +41,14 @@ public class Registration implements Serializable{
     private String course_name;
     private String department;
     private String phone_number;
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
 
     @EJB
     UserService usrSrv;
+    
+    @EJB
+    ProjLoggingService pls;
 
     private static final Logger LOGGER = Logger.getLogger(Registration.class.getName());
     
@@ -129,24 +138,29 @@ public class Registration implements Serializable{
 
     //call the injected EJB 
     public String registerStu() {
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         usrSrv.registerStudent(username, password, fname, lname, email, course_name);
         LOGGER.log(Level.INFO, "Student {0} is added", username);
+        
+        // log
+        pls.insertLog("admin", formattedDate, "Registration", "Register new Student");
         return "index";
     }
     
     public String registerSpv() {
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         usrSrv.registerSpv(username, password, fname, lname, email, department, phone_number);
         LOGGER.log(Level.INFO, "Supervisor {0} is added", username);
+        
+        // log
+        pls.insertLog("admin", formattedDate, "Registration", "Register new Supervisor");
         return "index";
     }
     
-    /*public void logout() {
-        FacesContext.getCurrentInstance().getExternalContext()
-                .invalidateSession();
-        FacesContext.getCurrentInstance()
-                .getApplication().getNavigationHandler()
-                .handleNavigation(FacesContext.getCurrentInstance(), null, "/login.xhtml");
-    }*/
     
     
 }

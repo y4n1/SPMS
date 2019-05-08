@@ -80,9 +80,7 @@ public class Project implements Serializable {
         joinColumns = @JoinColumn(name = "project_id"),
         inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
-    
-    
-    
+        
     private Set<ProjectTopic> topics = new LinkedHashSet<>();
     
 

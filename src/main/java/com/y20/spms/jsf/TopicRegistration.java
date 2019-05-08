@@ -5,8 +5,12 @@
  */
 package com.y20.spms.jsf;
 
+import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.TopicService;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -28,9 +32,14 @@ public class TopicRegistration implements Serializable{
     
     private String project_title;
     private String topic_description;
+    Date date = new Date();
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
     
     @EJB
     TopicService prjSrv;
+    
+    @EJB
+    ProjLoggingService pls;
     
     private static final Logger LOGGER = Logger.getLogger(TopicRegistration.class.getName());
     
@@ -64,14 +73,29 @@ public class TopicRegistration implements Serializable{
     
     //call the injected EJB 
     public String registerProjTopic() {
+        
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         prjSrv.registerTopic(project_title, topic_description);
         LOGGER.log(Level.INFO, "New Topic{0} is added by Admin", project_title);
+        
+        // log
+        pls.insertLog("admin", formattedDate, "TopicRegistration", "Create New Topic");
+        
         return "index";
     }
     
     public String registerProjTopicSpv() {
+        
+        date.setTime(ts.getTime());
+        String formattedDate = new SimpleDateFormat("yyyyMMddhhmm").format(date);
+        
         prjSrv.registerTopic(project_title, topic_description);
         LOGGER.log(Level.INFO, "New Topic{0} is added by Supervisor", project_title);
+        
+        // log
+        pls.insertLog("Supervisor", formattedDate, "TopicRegistration", "Create New Topic");
         return "supervisorPage";
     }
     

@@ -34,8 +34,10 @@ public class InsertAdmin {
     
     @PostConstruct 
     public void createSomeDataInDatabase (){
+        int x;
         
-        if(isNull(checkExist().getUsername())){
+        x = checkExist();
+        if(x > 0){
             
             Logger.getLogger(UserService.class.getName()).info("User exist");
            
@@ -66,13 +68,18 @@ public class InsertAdmin {
         }
     }    
     
-    public SystemUser checkExist(){
+    public Integer checkExist(){
         
         String user = "admin1";
         String query = "select s from SystemUser s where s.username = :user";
         TypedQuery<SystemUser> q = em.createQuery(query, SystemUser.class);
         q.setParameter("user", user);
-        return q.getSingleResult();   
+        if (q.getResultList().size() > 0){
+            return 1;
+        }
+        else{
+            return 0;
+        }   
     }
             
     
