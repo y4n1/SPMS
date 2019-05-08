@@ -12,6 +12,8 @@ import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -50,6 +52,8 @@ public class ProjSelection2 implements Serializable {
     
     @EJB
     RetrieveID ri;
+    
+    private static final Logger LOGGER = Logger.getLogger(ProjSelection2.class.getName());
     
     public ProjSelection2() {
 
@@ -199,6 +203,8 @@ public class ProjSelection2 implements Serializable {
     public String updateProj() {
         int check;
         Getloginid();
+        
+        LOGGER.log(Level.INFO, "User {0}Is applying for project {1}", new Object[]{projstd, projID});
         
         check = pss.checkrecord(projstd);
         

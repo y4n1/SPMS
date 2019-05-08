@@ -24,6 +24,10 @@
                         <td>Request to Cancel <h:link value="here" outcome="RequestCancel"/></td>
                     </tr>
                     <tr>
+                        <td>Check Request Status <h:commandButton value="Display" action="#{StuReqStat.projectStatus()}"/></td>
+                    </tr>
+                    <tr/>
+                    <tr>
                         <td>Logout: <h:commandButton value="Logout" action="#{login.logout()}"/></td>
                     </tr>
                 </table>

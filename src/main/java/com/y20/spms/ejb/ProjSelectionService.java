@@ -10,6 +10,7 @@ import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -20,6 +21,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import static javax.ws.rs.core.Response.status;
+
 
 /**
  *
@@ -39,7 +41,6 @@ public class ProjSelectionService {
     
     private static final Logger LOGGER = Logger.getLogger(ProjSelectionService.class.getName());
     
-    
     // Update project to proposed & fill student ID
     @TransactionAttribute(REQUIRED) 
     public void updateProject(Long id, Long stu) {
@@ -50,10 +51,10 @@ public class ProjSelectionService {
       proj.setStudent(student);
       proj.setProjectStatus(Project.ProjectStatus.PROPOSED);
       
-      LOGGER.info("Before Commit");
       em.persist(proj);
       em.flush();       
-        
+      LOGGER.log(Level.INFO, "Student {0} requested a project", stu);
+      
     }
     
     // Get all supervisor for available project

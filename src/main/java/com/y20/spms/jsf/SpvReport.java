@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import static java.util.Objects.isNull;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -30,12 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestScoped
 public class SpvReport implements Serializable{
     
- //   private String studentname;
- //   private Long projID;
     private Long studentid;
- //   private String comment;
- //   private String status;
-  //  private String Description;
     private Long spvid;
     private Project pt = new Project();
     private Student st = new Student();
@@ -47,6 +44,8 @@ public class SpvReport implements Serializable{
     @EJB
     RetrieveID ri;
             
+    private static final Logger LOGGER = Logger.getLogger(SpvReport.class.getName());
+    
     public SpvReport() {
         
     }
@@ -123,6 +122,7 @@ public class SpvReport implements Serializable{
         std = request.getRemoteUser();
         sv = ri.getspvId(std);
         this.setSpvid(sv.getId());
+        LOGGER.log(Level.INFO, "{0} is extracting supervisor report", std);
     }  
     
     // Retrieve Project
@@ -184,10 +184,7 @@ public class SpvReport implements Serializable{
         int i = 0;
         int ttlrec;
         
-        System.out.println("I am here" + studentid);
         if (Long.valueOf(0).equals(studentid)){
-            
-            System.out.println("I am here");
             
             List<Project> prjtitleall = srs.getproposeallstudent(spvid);
             projlist = new projTitle[prjtitleall.size()];

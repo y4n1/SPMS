@@ -13,7 +13,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -25,15 +29,19 @@ import javax.persistence.TypedQuery;
  */
 
 @Stateless
+@TransactionAttribute(NOT_SUPPORTED)
 public class ProjectService {
     
     @PersistenceContext
     EntityManager em;
     
+    private static final Logger LOGGER = Logger.getLogger(ProjectService.class.getName());
+    
     public ProjectService() {
     }
     
     // Register Project 
+    @TransactionAttribute(REQUIRED)
     public void registerProject(String title, String description, String requiredSkills, Long spv,  Long topic) {
         //long x = 4;
         Project proj;
@@ -55,9 +63,12 @@ public class ProjectService {
         proj.setSupervisor(supervisor);
         em.persist(proj);
         em.flush();         
+        
+        LOGGER.info("Project " + title + " is added" );
     }
     
     // Propose Project by student
+    @TransactionAttribute(REQUIRED)
     public void proposeProject(String title, String description, String requiredSkills, Long spv,  Long topic, Long stu) {
         //long x = 4;
         Project proj;
@@ -78,7 +89,7 @@ public class ProjectService {
         em.persist(proj);
         em.flush();  
              
-        
+        LOGGER.info("Student " + stu + " is Proposing Project " + title);
         
     }
    

@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
@@ -55,6 +57,8 @@ public class ProjSelection implements Serializable {
     
     @EJB
     RetrieveID ri;
+    
+    private static final Logger LOGGER = Logger.getLogger(ProjSelection.class.getName());
     
     public ProjSelection() {
 
@@ -251,8 +255,10 @@ public class ProjSelection implements Serializable {
     public String updateProj() {
         int check;
         Getloginid();
+
+        LOGGER.log(Level.INFO, "User {0}Is applying for project {1}", new Object[]{projstd, projID});
         
-        //System.out.println(projstd);
+        
         check = pss.checkrecord(projstd);
         
         if (check == 0){

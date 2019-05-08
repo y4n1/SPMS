@@ -13,6 +13,10 @@
             <h:form id="Index">
                 <table>
                     <tr>
+                        <td><h:outputLabel for="notif" value="You have request cancellation: "/>
+                            <h:outputLabel value="#{AdminNotif.total}"/></td>
+                    </tr>
+                    <tr>
                         <td> Register Student <h:link value="here" outcome="studentRegistration" /> </td>
                     </tr>
                     <tr/>    
@@ -30,6 +34,9 @@
                     <tr/>    
                     <tr>
                         <td> Cancel Project <h:link value="here" outcome="projectCancellation"/></td>
+                    </tr>
+                    <tr>
+                        <td> Report <h:link value="here" outcome="adminReport"/></td>
                     </tr>
                     <tr/>    
                     <tr>    

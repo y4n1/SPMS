@@ -34,7 +34,7 @@ public class StudentResource {
     // by supervisor ID
     @GET
     @Path("/{supervisorId}")
-    @Produces({"application/json", "application/xml"})
+    @Produces({"application/json"})
     public List<Student> getStudents(@PathParam("supervisorId")  Long supervisorId) {
         return studentOperation.findSupervisorByStudents(supervisorId);   
     }
@@ -42,7 +42,7 @@ public class StudentResource {
     // All
     @GET
     @Path("/all")
-    @Produces({"application/json", "application/xml"})
+    @Produces({"application/json"})
     public List<Student> getAllProjects() {
         return studentOperation.findAllStudents();
     }

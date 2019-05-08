@@ -76,8 +76,7 @@ public class RestOperation {
     }    
     
     public List<Project> findProjectBySupervisor(Long supervisorId) {
-        String query = "select p from Project AS p where p.supervisor.id = :supervisorId";
-      
+        String query = "select p from Project p where p.supervisor.id = :supervisorId";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
         q.setParameter("supervisorId", supervisorId);
         

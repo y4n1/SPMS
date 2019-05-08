@@ -34,7 +34,7 @@ public class ProjCancelService {
         
     }
     
-    private static final Logger LOGGER = Logger.getLogger(ProjSelectionService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ProjCancelService.class.getName());
     
     @TransactionAttribute(REQUIRED)
     public void updateProject(Long id, Long stu, String comment) {
@@ -47,9 +47,9 @@ public class ProjCancelService {
       proj.setProjectStatus(Project.ProjectStatus.RFC);
       proj.setReason(comment);
       
-      LOGGER.info("Before Commit");
       em.persist(proj);
       em.flush();         
+      LOGGER.info("Student " + stu + " is requested for cancelling project " + id);
        
     }
     

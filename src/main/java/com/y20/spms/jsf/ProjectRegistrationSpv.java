@@ -12,6 +12,8 @@ import com.y20.spms.entity.Supervisor;
 import com.y20.spms.entity.SystemUser;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -39,6 +41,8 @@ public class ProjectRegistrationSpv implements Serializable{
     
     @EJB
     RetrieveID ri;
+    
+    private static final Logger LOGGER = Logger.getLogger(ProjectRegistrationSpv.class.getName());
     
     public ProjectRegistrationSpv() {
 
@@ -123,8 +127,8 @@ public class ProjectRegistrationSpv implements Serializable{
     //register project
     public String registerProj() {
         Getloginid();
-        System.out.println(projspv);
         prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
+        LOGGER.log(Level.INFO, "Project {0} is added by {1}", new Object[]{projtitle, projspv});
         return "supervisorPage.xhtml";
     }
     

@@ -7,6 +7,8 @@ package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.TopicService;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -29,6 +31,8 @@ public class TopicRegistration implements Serializable{
     
     @EJB
     TopicService prjSrv;
+    
+    private static final Logger LOGGER = Logger.getLogger(TopicRegistration.class.getName());
     
     public TopicRegistration() {
 
@@ -61,11 +65,13 @@ public class TopicRegistration implements Serializable{
     //call the injected EJB 
     public String registerProjTopic() {
         prjSrv.registerTopic(project_title, topic_description);
+        LOGGER.log(Level.INFO, "New Topic{0} is added by Admin", project_title);
         return "index";
     }
     
     public String registerProjTopicSpv() {
         prjSrv.registerTopic(project_title, topic_description);
+        LOGGER.log(Level.INFO, "New Topic{0} is added by Supervisor", project_title);
         return "supervisorPage";
     }
     

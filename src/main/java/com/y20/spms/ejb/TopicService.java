@@ -15,6 +15,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.NOT_SUPPORTED;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -23,15 +26,18 @@ import javax.persistence.PersistenceContext;
  * @author Yan's
  */
 @Stateless
+@TransactionAttribute(NOT_SUPPORTED)
 public class TopicService {
     
     @PersistenceContext
     EntityManager em;
     
+    private static final Logger LOGGER = Logger.getLogger(TopicService.class.getName());
+    
     public TopicService() {
     }
     
-    
+@TransactionAttribute(REQUIRED)    
 public void registerTopic(String title, String description) {
 
         ProjectTopic topic;
@@ -42,5 +48,7 @@ public void registerTopic(String title, String description) {
         topic.setTopicDescription(description);
         em.persist(topic);
         em.flush();  
+        
+        LOGGER.info("New Topic " + title + "has been added");
     }
 }

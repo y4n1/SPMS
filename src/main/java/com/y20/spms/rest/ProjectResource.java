@@ -23,7 +23,6 @@ import javax.ws.rs.Produces;
  */
 
 @Singleton
-//@Path("/project/{supervisorId}")
 @Path("project")
 public class ProjectResource {
     
@@ -33,7 +32,7 @@ public class ProjectResource {
     // by supervisor ID
     @GET
     @Path("/{supervisorId}")
-    @Produces({"application/json", "application/xml"})
+    @Produces({"application/json"})
     public List<Project> getProjects(@PathParam("supervisorId")  Long supervisorId) {
         return prjOperation.findProjectBySupervisor(supervisorId);  
     }
@@ -41,7 +40,7 @@ public class ProjectResource {
     // All
     @GET
     @Path("/all")
-    @Produces({"application/json", "application/xml"})
+    @Produces({"application/json"})
     public List<Project> getAllProjects() {
         return prjOperation.findAllProjects();
     }

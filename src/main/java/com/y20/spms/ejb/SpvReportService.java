@@ -30,7 +30,6 @@ public class SpvReportService {
     }
     
     // Select detail project by supervisor and student
-    
     public List<Project> getproposebystudent(Long spvid, Long stuID) {
         String query = "select p from Project p where p.supervisor.id = :spvid and p.student.id = :stuID";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
@@ -44,7 +43,7 @@ public class SpvReportService {
         String query = "select p from Project p " +
                 " inner join p.supervisor s" +
                 " where p.supervisor.id = :spvid" +
-                " order by p.student.id ASC";
+                " order by p.supervisor.id ASC";
         TypedQuery<Project> q = em.createQuery(query, Project.class);
         q.setParameter("spvid", spvid);
         return q.getResultList();               

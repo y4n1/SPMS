@@ -11,6 +11,7 @@ import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -170,7 +171,7 @@ public class ProjectCancellation implements Serializable{
         //Getloginid();
         System.out.println(projID);
         pcs.updateProject(projID);
-        LOGGER.info("Data updated");
+        LOGGER.log(Level.INFO, "{0} is updated", projID);
         //pcs.insertProject(projID, studentid);
         //LOGGER.info("Data inserted");
         return "index";

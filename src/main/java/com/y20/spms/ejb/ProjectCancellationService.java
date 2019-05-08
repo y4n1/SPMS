@@ -10,6 +10,7 @@ import com.y20.spms.entity.ProjectTopic;
 import com.y20.spms.entity.Student;
 import com.y20.spms.entity.Supervisor;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -47,14 +48,10 @@ public class ProjectCancellationService {
       proj1 = em.find(Project.class, id);
       
       proj1.setProjectStatus(Project.ProjectStatus.CANCELLED);
-      
-//      Supervisor supervisor = em.getReference(Supervisor.class, proj1.getSupervisor().getId());
-//      ProjectTopic pt = em.getReference(ProjectTopic.class, proj1.getTopics());
-      
-//      
+          
       em.persist(proj1);
       em.flush();
-      LOGGER.info("Project" + id + "is cancelled");
+      LOGGER.log(Level.INFO, "Project {0} is cancelled", id);
     }
        
            

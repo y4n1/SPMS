@@ -6,12 +6,15 @@
 package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjCancelService;
+import com.y20.spms.ejb.ProjectCancellationService;
 import com.y20.spms.ejb.ProjectService;
 import com.y20.spms.ejb.RetrieveID;
 import com.y20.spms.entity.Project;
 import com.y20.spms.entity.Student;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -41,6 +44,8 @@ public class ProjCancel implements Serializable{
     
     @EJB
     RetrieveID ri;
+    
+    private static final Logger LOGGER = Logger.getLogger(ProjCancel.class.getName());
     
     public ProjCancel() {
 
@@ -162,7 +167,7 @@ public class ProjCancel implements Serializable{
     public String updateProj() {
         
         Getloginid();
-        System.out.println(projstd);
+        LOGGER.log(Level.INFO, "Student {0}is requesting for cancellation of Project {1}", new Object[]{projstd, projID});
         pcs.updateProject(projID, projstd, comment);
         return "studentPage";
     }

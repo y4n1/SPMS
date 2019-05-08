@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -49,6 +51,8 @@ public class ProjectRegistration implements Serializable {
     
     @EJB
     RetrieveID ri;
+    
+    private static final Logger LOGGER = Logger.getLogger(ProjectRegistration.class.getName());
     
     public ProjectRegistration() {
 
@@ -141,6 +145,7 @@ public class ProjectRegistration implements Serializable {
     //register project
     public String registerProj() {
         prjSrv.registerProject(projtitle, projdecr, requiredskill, projspv, projtopic);
+        LOGGER.log(Level.INFO, "Project{0} is added", projtitle);
         return "index";
     }
       

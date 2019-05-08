@@ -9,6 +9,8 @@ import com.y20.spms.ejb.UserService;
 import static com.y20.spms.entity.SystemUserGroup_.username;
 import static com.y20.spms.entity.SystemUser_.userpassword;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -39,6 +41,8 @@ public class Registration implements Serializable{
     @EJB
     UserService usrSrv;
 
+    private static final Logger LOGGER = Logger.getLogger(Registration.class.getName());
+    
     public Registration() {
 
     }
@@ -126,11 +130,13 @@ public class Registration implements Serializable{
     //call the injected EJB 
     public String registerStu() {
         usrSrv.registerStudent(username, password, fname, lname, email, course_name);
+        LOGGER.log(Level.INFO, "Student {0} is added", username);
         return "index";
     }
     
     public String registerSpv() {
         usrSrv.registerSpv(username, password, fname, lname, email, department, phone_number);
+        LOGGER.log(Level.INFO, "Supervisor {0} is added", username);
         return "index";
     }
     

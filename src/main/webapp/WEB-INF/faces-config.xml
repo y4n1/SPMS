@@ -9,10 +9,40 @@
 
     
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/admin/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>user</from-outcome>
-            <to-view-id>index.xhtml</to-view-id>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>adminReport</from-outcome>
+            <to-view-id>/admin/adminReportPage.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>studentRegistration</from-outcome>
+            <to-view-id>/admin/studentRegistration.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>spvRegistration</from-outcome>
+            <to-view-id>/admin/spvRegistration.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>projectTopic</from-outcome>
+            <to-view-id>/admin/projectTopic.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>projectRegistration</from-outcome>
+            <to-view-id>/admin/projectRegistration.xhtml</to-view-id>
+            <redirect></redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>projectCancellation</from-outcome>
+            <to-view-id>/admin/projectCancellation.xhtml</to-view-id>
             <redirect></redirect>
         </navigation-case>
     </navigation-rule>
@@ -66,7 +96,7 @@
         <from-view-id>/projectTopic.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>index</from-outcome>
-            <to-view-id>index.xhtml</to-view-id>
+            <to-view-id>/admin/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>supervisorPage</from-outcome>
@@ -91,5 +121,60 @@
             <to-view-id>/supervisor/SpvReportPage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/adminReportPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>supervisorpage</from-outcome>
+            <to-view-id>/admin/SpvReport.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>studentpage</from-outcome>
+            <to-view-id>/admin/StuReport.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
-</faces-config>
+    <navigation-rule>
+        <from-view-id>/admin/SpvReport.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ASpvReport</from-outcome>
+            <to-view-id>/admin/ASpvReport.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>    
+    <navigation-rule>
+        <from-view-id>/admin/StuReport.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AStuReport</from-outcome>
+            <to-view-id>/admin/AStuReport.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/ASpvReport.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>SpvReportPage</from-outcome>
+            <to-view-id>/admin/SpvReport.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/AStuReport.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>SpvReportPage</from-outcome>
+            <to-view-id>/admin/StuReport.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/student/studentPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>StuRequestStatus</from-outcome>
+            <to-view-id>/student/stuRequestStatus.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/student/stuRequestStatus.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>StuReportPage</from-outcome>
+            <to-view-id>/student/studentPage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+</faces-config> 
