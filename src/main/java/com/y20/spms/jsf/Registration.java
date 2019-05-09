@@ -7,8 +7,6 @@ package com.y20.spms.jsf;
 
 import com.y20.spms.ejb.ProjLoggingService;
 import com.y20.spms.ejb.UserService;
-import static com.y20.spms.entity.SystemUserGroup_.username;
-import static com.y20.spms.entity.SystemUser_.userpassword;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
